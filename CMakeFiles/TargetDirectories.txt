@@ -1,4 +1,5 @@
 /home/fyx/sylar/CMakeFiles/sylar.dir
 /home/fyx/sylar/CMakeFiles/test.dir
+/home/fyx/sylar/CMakeFiles/test_config.dir
 /home/fyx/sylar/CMakeFiles/edit_cache.dir
 /home/fyx/sylar/CMakeFiles/rebuild_cache.dir

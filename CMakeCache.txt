@@ -219,6 +219,12 @@ EXECUTABLE_OUTPUT_PATH:PATH=
 //Single output directory for building all libraries.
 LIBRARY_OUTPUT_PATH:PATH=
 
+//Path to a library.
+THIRDPART_PATH:FILEPATH=THIRDPART_PATH-NOTFOUND
+
+//Path to a library.
+YAML_PATH:FILEPATH=/home/fyx/sylar/thirdpart/yaml/libyaml-cpp.a
+
 //Value Computed by CMake
 sylar_BINARY_DIR:STATIC=/home/fyx/sylar
 

@@ -221,6 +221,12 @@ CMakeFiles/test.dir/tests/test.o: tests/test.cpp \
   /usr/include/c++/11/bits/stl_vector.h \
   /usr/include/c++/11/bits/stl_bvector.h \
   /usr/include/c++/11/bits/vector.tcc \
+  /usr/include/c++/11/map \
+  /usr/include/c++/11/bits/stl_tree.h \
+  /usr/include/c++/11/bits/stl_map.h \
+  /usr/include/c++/11/bits/stl_multimap.h \
+  /usr/include/c++/11/bits/erase_if.h \
+  sylar/singleton.h \
   sylar/util.h \
   /usr/include/c++/11/thread \
   /usr/include/c++/11/bits/std_thread.h \
@@ -264,6 +270,10 @@ CMakeFiles/test.dir/tests/test.o: tests/test.cpp \
 /usr/include/c++/11/bits/std_thread.h:
 
 sylar/util.h:
+
+/usr/include/c++/11/bits/erase_if.h:
+
+/usr/include/c++/11/bits/stl_map.h:
 
 /usr/include/c++/11/bits/vector.tcc:
 
@@ -318,6 +328,8 @@ sylar/util.h:
 /usr/include/c++/11/bits/shared_ptr_atomic.h:
 
 /usr/include/c++/11/bits/nested_exception.h:
+
+sylar/singleton.h:
 
 /usr/include/c++/11/exception:
 
@@ -533,6 +545,8 @@ sylar/log.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/time_t.h:
 
+/usr/include/c++/11/bits/stl_tree.h:
+
 /usr/include/c++/11/tuple:
 
 /usr/include/c++/11/type_traits:
@@ -556,6 +570,8 @@ tests/test.cpp:
 /usr/include/x86_64-linux-gnu/bits/wchar.h:
 
 /usr/include/c++/11/bits/exception.h:
+
+/usr/include/c++/11/map:
 
 /usr/include/c++/11/bits/range_access.h:
 
@@ -582,6 +598,8 @@ tests/test.cpp:
 /usr/include/c++/11/bits/stringfwd.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h:
+
+/usr/include/c++/11/bits/stl_multimap.h:
 
 /usr/include/features.h:
 

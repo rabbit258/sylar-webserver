@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/fyx/sylar/sylar/config.cpp" "CMakeFiles/sylar.dir/sylar/config.o" "gcc" "CMakeFiles/sylar.dir/sylar/config.o.d"
   "/home/fyx/sylar/sylar/log.cpp" "CMakeFiles/sylar.dir/sylar/log.o" "gcc" "CMakeFiles/sylar.dir/sylar/log.o.d"
   "/home/fyx/sylar/sylar/util.cpp" "CMakeFiles/sylar.dir/sylar/util.o" "gcc" "CMakeFiles/sylar.dir/sylar/util.o.d"
   )
