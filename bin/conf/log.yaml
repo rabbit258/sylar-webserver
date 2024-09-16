@@ -13,3 +13,14 @@ logs:
         - type : FileLogAppender
           file : log.txt
         - type : StdoutLogAppender
+system:
+    vi: [10,20]
+    list: [10,20]
+    set: [30,20,10]
+    uset: [30,20,0,10,-10]
+    map:
+      k : 30
+      c : 12
+    umap:
+      hhh : 11
+      ccc : 22

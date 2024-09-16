@@ -18,7 +18,6 @@ static void ListAllMember(const std::string & prefix,
         }
     }
 }
-static void LoadFromYaml(const YAML::Node & node);
 void Config::LoadFromYaml(const YAML::Node &node)
 {
     std::list<std::pair<std::string,const YAML::Node>> all_nodes;

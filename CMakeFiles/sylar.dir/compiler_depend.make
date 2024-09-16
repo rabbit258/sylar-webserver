@@ -887,7 +887,9 @@ CMakeFiles/sylar.dir/sylar/config.o: sylar/config.cpp \
   /usr/include/c++/11/bits/indirect_array.h \
   thirdpart/include/yaml-cpp/node/detail/impl.h \
   thirdpart/include/yaml-cpp/node/parse.h \
-  thirdpart/include/yaml-cpp/node/emit.h
+  thirdpart/include/yaml-cpp/node/emit.h \
+  /usr/include/c++/11/unordered_set \
+  /usr/include/c++/11/bits/unordered_set.h
 
 CMakeFiles/sylar.dir/sylar/log.o: sylar/log.cpp \
   /usr/include/stdc-predef.h \
@@ -1294,6 +1296,8 @@ sylar/util.cpp:
 
 sylar/log.cpp:
 
+/usr/include/c++/11/unordered_set:
+
 thirdpart/include/yaml-cpp/node/detail/impl.h:
 
 /usr/include/c++/11/bits/indirect_array.h:
@@ -1587,6 +1591,8 @@ thirdpart/include/yaml-cpp/emittermanip.h:
 /usr/include/c++/11/bits/valarray_before.h:
 
 /usr/include/c++/11/bits/stl_bvector.h:
+
+/usr/include/c++/11/bits/unordered_set.h:
 
 thirdpart/include/yaml-cpp/yaml.h:
 
