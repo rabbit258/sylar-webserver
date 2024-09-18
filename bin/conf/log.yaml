@@ -1,17 +1,18 @@
 logs:
     - name : root
       level : info
-      format : "%d%T%m%n"
+      formatter : "%d%T%m%n"
       appender :
         - type : FileLogAppender
-          file : log.txt
+          file : root.txt
         - type : StdoutLogAppender
     - name : system
       level : debug
-      format : "%d%T%m%n"
+      formatter : "%d%T%m%n"
       appender :
         - type : FileLogAppender
-          file : log.txt
+          file : system.txt
+          formatter : "%d%T[%p]%T%m%n"
         - type : StdoutLogAppender
 system:
     vi: [10,20]
@@ -24,3 +25,23 @@ system:
     umap:
       hhh : 11
       ccc : 22
+class:
+    person:
+      name : sylar
+      age: 31
+      sex: true
+    vec_map:
+      sylars:
+        - name : sylar1
+          age: 31
+          sex: true
+        - name : sylar2
+          age: 31
+          sex: true
+      sylarss:
+        - name : sylar1
+          age: 35
+          sex: true
+        - name : sylar2
+          age: 40
+          sex: true

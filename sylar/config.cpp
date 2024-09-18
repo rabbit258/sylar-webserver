@@ -1,7 +1,7 @@
 #include "config.h"
-
+#include <iostream>
 namespace sylar{
-    Config::ConfigVarMap Config::m_datas;
+    // Config::ConfigVarMap Config::m_datas;
 static void ListAllMember(const std::string & prefix,
                           const YAML::Node & node,
                           std::list<std::pair<std::string,const YAML::Node>> & output){
@@ -31,7 +31,6 @@ void Config::LoadFromYaml(const YAML::Node &node)
 
         std::transform(key.begin(),key.end(),key.begin(),::tolower);
         ConfigVarBase::ptr var = LookupBase(key);
-
         if(var){
             if(i.second.IsScalar()){
                 var->fromString(i.second.Scalar());
@@ -46,7 +45,7 @@ void Config::LoadFromYaml(const YAML::Node &node)
 }
 ConfigVarBase::ptr Config::LookupBase(const std::string &name)
 {
-    auto it = m_datas.find(name);
-    return it==m_datas.end()?nullptr:it->second;
+    auto it = GetDatas().find(name);
+    return it==GetDatas().end()?nullptr:it->second;
 }
 }

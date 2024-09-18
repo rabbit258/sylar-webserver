@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/fyx/sylar/tests/test_config.cpp" "CMakeFiles/test_config.dir/tests/test_config.o" "gcc" "CMakeFiles/test_config.dir/tests/test_config.o.d"
+  "/home/fyx/sylar/tests/test_config.cpp" "CMakeFiles/test_config.dir/tests/test_config.cpp.o" "gcc" "CMakeFiles/test_config.dir/tests/test_config.cpp.o.d"
   )
 
 # Targets to which this target links.

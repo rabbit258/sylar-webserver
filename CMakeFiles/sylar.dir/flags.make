@@ -6,5 +6,13 @@ CXX_DEFINES = -Dsylar_EXPORTS
 
 CXX_INCLUDES = -I/home/fyx/sylar/. -I/home/fyx/sylar/./thirdpart/include
 
-CXX_FLAGS =  -rdynamic -O3 -g -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -fPIC
+CXX_FLAGS =  -rdynamic -O3 -g -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -fPIC
+
+# Custom defines: CMakeFiles/sylar.dir/sylar/log.cpp.o_DEFINES = __FILE__="sylar/log.cpp"
+
+# Custom defines: CMakeFiles/sylar.dir/sylar/util.cpp.o_DEFINES = __FILE__="sylar/util.cpp"
+
+# Custom defines: CMakeFiles/sylar.dir/sylar/config.cpp.o_DEFINES = __FILE__="sylar/config.cpp"
+
+# Custom defines: CMakeFiles/sylar.dir/sylar/thread.cpp.o_DEFINES = __FILE__="sylar/thread.cpp"
 

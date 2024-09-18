@@ -72,28 +72,28 @@ include CMakeFiles/test.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/test.dir/flags.make
 
-CMakeFiles/test.dir/tests/test.o: CMakeFiles/test.dir/flags.make
-CMakeFiles/test.dir/tests/test.o: tests/test.cpp
-CMakeFiles/test.dir/tests/test.o: CMakeFiles/test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/fyx/sylar/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/test.dir/tests/test.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test.dir/tests/test.o -MF CMakeFiles/test.dir/tests/test.o.d -o CMakeFiles/test.dir/tests/test.o -c /home/fyx/sylar/tests/test.cpp
+CMakeFiles/test.dir/tests/test.cpp.o: CMakeFiles/test.dir/flags.make
+CMakeFiles/test.dir/tests/test.cpp.o: tests/test.cpp
+CMakeFiles/test.dir/tests/test.cpp.o: CMakeFiles/test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/fyx/sylar/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/test.dir/tests/test.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) -D__FILE__=\"tests/test.cpp\" $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test.dir/tests/test.cpp.o -MF CMakeFiles/test.dir/tests/test.cpp.o.d -o CMakeFiles/test.dir/tests/test.cpp.o -c /home/fyx/sylar/tests/test.cpp
 
-CMakeFiles/test.dir/tests/test.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test.dir/tests/test.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/fyx/sylar/tests/test.cpp > CMakeFiles/test.dir/tests/test.i
+CMakeFiles/test.dir/tests/test.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test.dir/tests/test.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) -D__FILE__=\"tests/test.cpp\" $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/fyx/sylar/tests/test.cpp > CMakeFiles/test.dir/tests/test.cpp.i
 
-CMakeFiles/test.dir/tests/test.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test.dir/tests/test.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/fyx/sylar/tests/test.cpp -o CMakeFiles/test.dir/tests/test.s
+CMakeFiles/test.dir/tests/test.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test.dir/tests/test.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) -D__FILE__=\"tests/test.cpp\" $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/fyx/sylar/tests/test.cpp -o CMakeFiles/test.dir/tests/test.cpp.s
 
 # Object files for target test
 test_OBJECTS = \
-"CMakeFiles/test.dir/tests/test.o"
+"CMakeFiles/test.dir/tests/test.cpp.o"
 
 # External object files for target test
 test_EXTERNAL_OBJECTS =
 
-bin/test: CMakeFiles/test.dir/tests/test.o
+bin/test: CMakeFiles/test.dir/tests/test.cpp.o
 bin/test: CMakeFiles/test.dir/build.make
 bin/test: lib/libsylar.so
 bin/test: thirdpart/yaml/libyaml-cpp.a

@@ -3,15 +3,15 @@
 #include<memory>
 #include<sstream>
 #include<boost/lexical_cast.hpp>
-#include<map>
 #include"log.h"
 #include"singleton.h"
 #include<yaml-cpp/yaml.h>
 #include<list>
-// #include<map>
+#include<map>
 #include<set>
 #include<unordered_map>
 #include<unordered_set>
+#include<functional>
 
 namespace sylar
 {
@@ -29,6 +29,7 @@ public:
 
     virtual std::string toString() = 0;
     virtual bool fromString(const std::string & val) = 0;
+    virtual std::string getTypeName() const = 0;
 protected:
     std::string m_name;
     std::string m_description;
@@ -228,7 +229,7 @@ class ToStr = LexicalCast<T,std::string>>
 class ConfigVar : public ConfigVarBase {
 public:
     typedef std::shared_ptr<ConfigVar> ptr;
-
+    typedef std::function<void (const T& old_value,const T & new_value)> on_chang_cb;
     ConfigVar(const std::string & name
             ,const T& default_value
             ,const std::string & description = "")
@@ -259,9 +260,36 @@ public:
     }
 
     const T getValue() const {return m_val;}
-    void setValue(const T & v) {m_val =v;}
+    void setValue(const T & v) {
+        if(v == m_val){
+            return;
+        }
+        for(auto & i : m_cbs){
+            i.second(m_val,v);
+        }
+        m_val =v;
+    }
+    std::string getTypeName() const override{return typeid(T).name();}
+
+    void addListener(uint64_t key,on_chang_cb cb){
+        m_cbs[key]=cb;
+    }
+    void delListener(uint64_t key){
+        m_cbs.erase(key);
+    }
+
+    on_chang_cb getListener(uint64_t key){
+        auto it = m_cbs.find(key);
+        return it == m_cbs.end() ? nullptr : it->second;
+    }
+
+    void clearListener(){
+        m_cbs.clear();
+    }
 private:
     T m_val;
+
+    std::map<uint64_t,on_chang_cb> m_cbs;
 };
 
 class Config {
@@ -271,11 +299,23 @@ public:
     template<class T>
     static typename ConfigVar<T>::ptr Lookup(const std::string & name,
             const T& default_value,const std::string & description = ""){
-        auto tmp = Lookup<T>(name);
-        if(tmp){
-            SYLAR_LOG_INFO(SYLAR_LOG_ROOT()) << "Lookup name = " << name <<" exists";
-            return tmp;
+        auto it = GetDatas().find(name);
+        if(it != GetDatas().end()){
+            auto tmp = std::dynamic_pointer_cast<ConfigVar<T>> (it->second);
+            if(tmp){
+                SYLAR_LOG_INFO(SYLAR_LOG_ROOT()) << "Lookup name= "<< name <<" exists";
+                return tmp;
+            }else {
+                SYLAR_LOG_ERROR(SYLAR_LOG_ROOT()) <<"Lookup name= "<< name <<" exists but type not"
+                <<it->second->getTypeName();
+                return nullptr;
+            }
         }
+        // auto tmp = Lookup<T>(name);
+        // if(tmp){
+        //     SYLAR_LOG_INFO(SYLAR_LOG_ROOT()) << "Lookup name = " << name <<" exists";
+        //     return tmp;
+        // }
 
         if(name.find_first_not_of("abcdefghijklmnopqrstuvwxyz._0123456789")!=std::string::npos){
             SYLAR_LOG_INFO(SYLAR_LOG_ROOT()) << "Lookup name invaild" << name;
@@ -283,14 +323,14 @@ public:
         }
 
         typename ConfigVar<T>::ptr v(new ConfigVar<T>(name,default_value,description));
-        m_datas[name]=v;
+        GetDatas()[name]=v;
         return v;
     }
 
     template<class T>
     static typename ConfigVar<T>::ptr Lookup(const std::string & name){
-        auto it = m_datas.find(name);
-        if(it==m_datas.end()){
+        auto it = GetDatas().find(name);
+        if(it==GetDatas().end()){
             return nullptr;
         }
         return std::dynamic_pointer_cast<ConfigVar<T>>(it->second);
@@ -300,6 +340,9 @@ public:
     static void LoadFromYaml(const YAML::Node & node);
     static ConfigVarBase::ptr LookupBase(const std::string & name);
 private:
-    static ConfigVarMap m_datas;
+    static ConfigVarMap & GetDatas(){
+        static ConfigVarMap m_datas;
+        return m_datas;
+    }
 };
 } // namespace sylar

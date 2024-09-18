@@ -1,10 +1,12 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/sylar.dir/sylar/config.o"
-  "CMakeFiles/sylar.dir/sylar/config.o.d"
-  "CMakeFiles/sylar.dir/sylar/log.o"
-  "CMakeFiles/sylar.dir/sylar/log.o.d"
-  "CMakeFiles/sylar.dir/sylar/util.o"
-  "CMakeFiles/sylar.dir/sylar/util.o.d"
+  "CMakeFiles/sylar.dir/sylar/config.cpp.o"
+  "CMakeFiles/sylar.dir/sylar/config.cpp.o.d"
+  "CMakeFiles/sylar.dir/sylar/log.cpp.o"
+  "CMakeFiles/sylar.dir/sylar/log.cpp.o.d"
+  "CMakeFiles/sylar.dir/sylar/thread.cpp.o"
+  "CMakeFiles/sylar.dir/sylar/thread.cpp.o.d"
+  "CMakeFiles/sylar.dir/sylar/util.cpp.o"
+  "CMakeFiles/sylar.dir/sylar/util.cpp.o.d"
   "lib/libsylar.pdb"
   "lib/libsylar.so"
 )
