@@ -1976,6 +1976,8 @@ CMakeFiles/sylar.dir/sylar/thread.cpp.o: sylar/thread.cpp \
   /usr/include/x86_64-linux-gnu/bits/stdio2.h \
   /usr/include/c++/11/bits/charconv.h \
   /usr/include/c++/11/bits/basic_string.tcc \
+  /usr/include/semaphore.h \
+  /usr/include/x86_64-linux-gnu/bits/semaphore.h \
   sylar/log.h \
   /usr/include/c++/11/list \
   /usr/include/c++/11/bits/stl_list.h \
@@ -2185,6 +2187,8 @@ CMakeFiles/sylar.dir/sylar/util.cpp.o: sylar/util.cpp \
 
 
 sylar/util.cpp:
+
+/usr/include/semaphore.h:
 
 sylar/thread.h:
 
@@ -3363,6 +3367,8 @@ thirdpart/include/yaml-cpp/node/detail/node_iterator.h:
 /usr/include/c++/11/bits/allocated_ptr.h:
 
 /usr/include/c++/11/bits/refwrap.h:
+
+/usr/include/x86_64-linux-gnu/bits/semaphore.h:
 
 /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h:
 
