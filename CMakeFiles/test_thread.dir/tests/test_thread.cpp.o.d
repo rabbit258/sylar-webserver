@@ -156,10 +156,11 @@ CMakeFiles/test_thread.dir/tests/test_thread.cpp.o: \
  /usr/include/c++/11/bits/charconv.h \
  /usr/include/c++/11/bits/basic_string.tcc /usr/include/semaphore.h \
  /usr/include/x86_64-linux-gnu/bits/semaphore.h \
- /home/fyx/sylar/./sylar/log.h /usr/include/c++/11/list \
- /usr/include/c++/11/bits/stl_list.h /usr/include/c++/11/bits/list.tcc \
- /usr/include/c++/11/sstream /usr/include/c++/11/istream \
- /usr/include/c++/11/ios /usr/include/c++/11/bits/ios_base.h \
+ /usr/include/c++/11/atomic /home/fyx/sylar/./sylar/log.h \
+ /usr/include/c++/11/list /usr/include/c++/11/bits/stl_list.h \
+ /usr/include/c++/11/bits/list.tcc /usr/include/c++/11/sstream \
+ /usr/include/c++/11/istream /usr/include/c++/11/ios \
+ /usr/include/c++/11/bits/ios_base.h \
  /usr/include/c++/11/bits/locale_classes.h \
  /usr/include/c++/11/bits/locale_classes.tcc \
  /usr/include/c++/11/system_error \
@@ -768,7 +769,6 @@ CMakeFiles/test_thread.dir/tests/test_thread.cpp.o: \
  /home/fyx/sylar/./thirdpart/include/yaml-cpp/node/detail/node_iterator.h \
  /home/fyx/sylar/./thirdpart/include/yaml-cpp/node/iterator.h \
  /home/fyx/sylar/./thirdpart/include/yaml-cpp/node/detail/iterator.h \
- /usr/include/c++/11/atomic \
  /home/fyx/sylar/./thirdpart/include/yaml-cpp/node/convert.h \
  /usr/include/c++/11/unordered_map /usr/include/c++/11/bits/hashtable.h \
  /usr/include/c++/11/bits/hashtable_policy.h \
@@ -787,4 +787,4 @@ CMakeFiles/test_thread.dir/tests/test_thread.cpp.o: \
  /home/fyx/sylar/./thirdpart/include/yaml-cpp/node/parse.h \
  /home/fyx/sylar/./thirdpart/include/yaml-cpp/node/emit.h \
  /usr/include/c++/11/unordered_set \
- /usr/include/c++/11/bits/unordered_set.h
+ /usr/include/c++/11/bits/unordered_set.h /home/fyx/sylar/./sylar/macro.h

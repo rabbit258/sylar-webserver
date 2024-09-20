@@ -718,23 +718,7 @@ CMakeFiles/sylar.dir/sylar/config.cpp.o: /home/fyx/sylar/sylar/config.cpp \
  /usr/include/boost/math/tools/real_cast.hpp \
  /usr/include/boost/integer.hpp /usr/include/boost/integer_fwd.hpp \
  /usr/include/boost/detail/basic_pointerbuf.hpp \
- /home/fyx/sylar/sylar/log.h /usr/include/c++/11/list \
- /usr/include/c++/11/bits/stl_list.h /usr/include/c++/11/bits/list.tcc \
- /usr/include/c++/11/fstream \
- /usr/include/x86_64-linux-gnu/c++/11/bits/basic_file.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/c++io.h \
- /usr/include/c++/11/bits/fstream.tcc /usr/include/c++/11/map \
- /usr/include/c++/11/bits/stl_tree.h /usr/include/c++/11/bits/stl_map.h \
- /usr/include/c++/11/bits/stl_multimap.h \
- /usr/include/c++/11/bits/erase_if.h /home/fyx/sylar/sylar/singleton.h \
- /home/fyx/sylar/sylar/util.h /usr/include/c++/11/thread \
- /usr/include/c++/11/bits/std_thread.h \
- /usr/include/c++/11/bits/this_thread_sleep.h /usr/include/c++/11/chrono \
- /usr/include/c++/11/ratio /usr/include/c++/11/bits/parse_numbers.h \
- /usr/include/x86_64-linux-gnu/sys/syscall.h \
- /usr/include/x86_64-linux-gnu/asm/unistd.h \
- /usr/include/x86_64-linux-gnu/asm/unistd_64.h \
- /usr/include/x86_64-linux-gnu/bits/syscall.h \
+ /home/fyx/sylar/sylar/singleton.h \
  /home/fyx/sylar/./thirdpart/include/yaml-cpp/yaml.h \
  /home/fyx/sylar/./thirdpart/include/yaml-cpp/parser.h \
  /home/fyx/sylar/./thirdpart/include/yaml-cpp/dll.h \
@@ -746,8 +730,13 @@ CMakeFiles/sylar.dir/sylar/config.cpp.o: /home/fyx/sylar/sylar/config.cpp \
  /home/fyx/sylar/./thirdpart/include/yaml-cpp/ostream_wrapper.h \
  /home/fyx/sylar/./thirdpart/include/yaml-cpp/emitterstyle.h \
  /home/fyx/sylar/./thirdpart/include/yaml-cpp/stlemitter.h \
- /usr/include/c++/11/set /usr/include/c++/11/bits/stl_set.h \
+ /usr/include/c++/11/list /usr/include/c++/11/bits/stl_list.h \
+ /usr/include/c++/11/bits/list.tcc /usr/include/c++/11/set \
+ /usr/include/c++/11/bits/stl_tree.h /usr/include/c++/11/bits/stl_set.h \
  /usr/include/c++/11/bits/stl_multiset.h \
+ /usr/include/c++/11/bits/erase_if.h /usr/include/c++/11/map \
+ /usr/include/c++/11/bits/stl_map.h \
+ /usr/include/c++/11/bits/stl_multimap.h \
  /home/fyx/sylar/./thirdpart/include/yaml-cpp/exceptions.h \
  /home/fyx/sylar/./thirdpart/include/yaml-cpp/mark.h \
  /home/fyx/sylar/./thirdpart/include/yaml-cpp/noexcept.h \
@@ -783,4 +772,17 @@ CMakeFiles/sylar.dir/sylar/config.cpp.o: /home/fyx/sylar/sylar/config.cpp \
  /home/fyx/sylar/./thirdpart/include/yaml-cpp/node/parse.h \
  /home/fyx/sylar/./thirdpart/include/yaml-cpp/node/emit.h \
  /usr/include/c++/11/unordered_set \
- /usr/include/c++/11/bits/unordered_set.h /usr/include/c++/11/iostream
+ /usr/include/c++/11/bits/unordered_set.h /home/fyx/sylar/sylar/thread.h \
+ /usr/include/c++/11/thread /usr/include/c++/11/bits/std_thread.h \
+ /usr/include/c++/11/bits/this_thread_sleep.h /usr/include/c++/11/chrono \
+ /usr/include/c++/11/ratio /usr/include/c++/11/bits/parse_numbers.h \
+ /usr/include/semaphore.h /usr/include/x86_64-linux-gnu/bits/semaphore.h \
+ /home/fyx/sylar/sylar/log.h /usr/include/c++/11/fstream \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/basic_file.h \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/c++io.h \
+ /usr/include/c++/11/bits/fstream.tcc /home/fyx/sylar/sylar/util.h \
+ /usr/include/x86_64-linux-gnu/sys/syscall.h \
+ /usr/include/x86_64-linux-gnu/asm/unistd.h \
+ /usr/include/x86_64-linux-gnu/asm/unistd_64.h \
+ /usr/include/x86_64-linux-gnu/bits/syscall.h \
+ /usr/include/c++/11/iostream

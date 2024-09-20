@@ -1,0 +1,53 @@
+2024-09-20 22:31:15	name =class.person description =system person typename =6Person value =name: sylar
+age: 31
+sex: 1
+2024-09-20 22:31:15	name =class.vec_map description =system person typename =St3mapINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESt6vectorI6PersonSaIS7_EESt4lessIS5_ESaISt4pairIKS5_S9_EEE value =sylars:
+  - name: sylar1
+    age: 31
+    sex: 1
+  - name: sylar2
+    age: 31
+    sex: 1
+sylarss:
+  - name: sylar1
+    age: 35
+    sex: 1
+  - name: sylar2
+    age: 40
+    sex: 1
+2024-09-20 22:31:15	name =logs description =logs config typename =St3setIN5sylar9LogDefineESt4lessIS1_ESaIS1_EE value =- name: root
+  level: INFO
+  formatter: "%d%T%m%n"
+  appender:
+    - type: FileLogAppender
+      file: root.txt
+      level: UNKNOW
+    - type: StdoutLogAppender
+      level: UNKNOW
+- name: system
+  level: DEBUG
+  formatter: "%d%T%m%n"
+  appender:
+    - type: FileLogAppender
+      file: system.txt
+      level: UNKNOW
+      formatter: "%d%T[%p]%T%m%n"
+    - type: StdoutLogAppender
+      level: UNKNOW
+2024-09-20 22:31:15	name =system.list description =system.vi typename =NSt7__cxx114listIiSaIiEEE value =- 10
+- 20
+2024-09-20 22:31:15	name =system.map description =system.vi typename =St3mapINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEiSt4lessIS5_ESaISt4pairIKS5_iEEE value =c: 12
+k: 30
+2024-09-20 22:31:15	name =system.port description =system port typename =i value =8080
+2024-09-20 22:31:15	name =system.set description =system.vi typename =St3setIiSt4lessIiESaIiEE value =- 10
+- 20
+- 30
+2024-09-20 22:31:15	name =system.umap description =system.vi typename =St13unordered_mapINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEiSt4hashIS5_ESt8equal_toIS5_ESaISt4pairIKS5_iEEE value =ccc: 22
+hhh: 11
+2024-09-20 22:31:15	name =system.uset description =system.vi typename =St13unordered_setIiSt4hashIiESt8equal_toIiESaIiEE value =- -10
+- 10
+- 0
+- 20
+- 30
+2024-09-20 22:31:15	name =system.vi description =system.vi typename =St6vectorIiSaIiEE value =- 10
+- 20

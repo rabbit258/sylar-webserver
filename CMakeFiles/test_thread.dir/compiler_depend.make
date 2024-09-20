@@ -197,6 +197,7 @@ CMakeFiles/test_thread.dir/tests/test_thread.cpp.o: tests/test_thread.cpp \
   /usr/include/c++/11/bits/basic_string.tcc \
   /usr/include/semaphore.h \
   /usr/include/x86_64-linux-gnu/bits/semaphore.h \
+  /usr/include/c++/11/atomic \
   sylar/log.h \
   /usr/include/c++/11/list \
   /usr/include/c++/11/bits/stl_list.h \
@@ -872,7 +873,6 @@ CMakeFiles/test_thread.dir/tests/test_thread.cpp.o: tests/test_thread.cpp \
   thirdpart/include/yaml-cpp/node/detail/node_iterator.h \
   thirdpart/include/yaml-cpp/node/iterator.h \
   thirdpart/include/yaml-cpp/node/detail/iterator.h \
-  /usr/include/c++/11/atomic \
   thirdpart/include/yaml-cpp/node/convert.h \
   /usr/include/c++/11/unordered_map \
   /usr/include/c++/11/bits/hashtable.h \
@@ -893,7 +893,8 @@ CMakeFiles/test_thread.dir/tests/test_thread.cpp.o: tests/test_thread.cpp \
   thirdpart/include/yaml-cpp/node/parse.h \
   thirdpart/include/yaml-cpp/node/emit.h \
   /usr/include/c++/11/unordered_set \
-  /usr/include/c++/11/bits/unordered_set.h
+  /usr/include/c++/11/bits/unordered_set.h \
+  sylar/macro.h
 
 
 /usr/include/c++/11/unordered_set:
@@ -917,8 +918,6 @@ thirdpart/include/yaml-cpp/node/detail/impl.h:
 /usr/include/c++/11/unordered_map:
 
 thirdpart/include/yaml-cpp/node/convert.h:
-
-/usr/include/c++/11/atomic:
 
 thirdpart/include/yaml-cpp/node/detail/iterator.h:
 
@@ -1367,6 +1366,8 @@ thirdpart/include/yaml-cpp/node/emit.h:
 thirdpart/include/yaml-cpp/emitterdef.h:
 
 /usr/include/boost/cstdint.hpp:
+
+/usr/include/boost/range/detail/has_member_size.hpp:
 
 /usr/include/boost/lexical_cast.hpp:
 
@@ -1922,6 +1923,12 @@ sylar/singleton.h:
 
 /usr/include/c++/11/exception:
 
+/usr/include/c++/11/atomic:
+
+/usr/include/boost/numeric/conversion/detail/sign_mixture.hpp:
+
+/usr/include/boost/iterator/detail/facade_iterator_category.hpp:
+
 /usr/include/c++/11/bits/hash_bytes.h:
 
 /usr/include/boost/lexical_cast/detail/inf_nan.hpp:
@@ -2182,8 +2189,6 @@ thirdpart/include/yaml-cpp/node/parse.h:
 
 /usr/include/boost/range/iterator_range_core.hpp:
 
-/usr/include/boost/range/detail/has_member_size.hpp:
-
 /usr/include/boost/detail/workaround.hpp:
 
 /usr/include/boost/config/workaround.hpp:
@@ -2269,6 +2274,8 @@ thirdpart/include/yaml-cpp/noexcept.h:
 /usr/include/boost/preprocessor/config/config.hpp:
 
 /usr/include/boost/mpl/aux_/preprocessor/params.hpp:
+
+sylar/macro.h:
 
 /usr/include/boost/type_traits/is_function.hpp:
 
@@ -2475,10 +2482,6 @@ thirdpart/include/yaml-cpp/stlemitter.h:
 /usr/include/boost/mpl/aux_/arity_spec.hpp:
 
 /usr/include/boost/mpl/aux_/preprocessed/gcc/placeholders.hpp:
-
-/usr/include/boost/numeric/conversion/detail/sign_mixture.hpp:
-
-/usr/include/boost/iterator/detail/facade_iterator_category.hpp:
 
 /usr/include/boost/config.hpp:
 

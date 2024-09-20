@@ -1,7 +1,8 @@
 #pragma once
 
-#include"sylar/thread.h"
-#include"sylar/log.h"
-#include"sylar/util.h"
+#include"thread.h"
+#include"log.h"
+#include"util.h"
 #include"singleton.h"
-#include"sylar/config.h"
+#include"config.h"
+#include"macro.h"

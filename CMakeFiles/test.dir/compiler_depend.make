@@ -248,7 +248,13 @@ CMakeFiles/test.dir/tests/test.cpp.o: tests/test.cpp \
   /usr/include/x86_64-linux-gnu/bits/getopt_core.h \
   /usr/include/x86_64-linux-gnu/bits/unistd.h \
   /usr/include/x86_64-linux-gnu/bits/unistd_ext.h \
-  /usr/include/linux/close_range.h
+  /usr/include/linux/close_range.h \
+  sylar/thread.h \
+  /usr/include/c++/11/functional \
+  /usr/include/c++/11/bits/std_function.h \
+  /usr/include/semaphore.h \
+  /usr/include/x86_64-linux-gnu/bits/semaphore.h \
+  /usr/include/c++/11/atomic
 
 
 /usr/include/x86_64-linux-gnu/bits/unistd_ext.h:
@@ -328,6 +334,8 @@ sylar/util.h:
 /usr/include/c++/11/bits/shared_ptr_atomic.h:
 
 /usr/include/c++/11/bits/nested_exception.h:
+
+/usr/include/x86_64-linux-gnu/bits/semaphore.h:
 
 sylar/singleton.h:
 
@@ -607,9 +615,13 @@ tests/test.cpp:
 
 /usr/include/c++/11/ext/numeric_traits.h:
 
+/usr/include/c++/11/functional:
+
 /usr/include/asm-generic/errno-base.h:
 
 /usr/include/c++/11/bits/char_traits.h:
+
+/usr/include/c++/11/bits/std_function.h:
 
 /usr/include/c++/11/bits/allocator.h:
 
@@ -618,6 +630,10 @@ tests/test.cpp:
 /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h:
 
 /usr/include/c++/11/ext/type_traits.h:
+
+/usr/include/c++/11/atomic:
+
+/usr/include/semaphore.h:
 
 /usr/include/c++/11/bits/exception_defines.h:
 
@@ -680,6 +696,8 @@ tests/test.cpp:
 /usr/include/x86_64-linux-gnu/bits/cpu-set.h:
 
 /usr/include/time.h:
+
+sylar/thread.h:
 
 /usr/include/c++/11/bits/stl_pair.h:
 

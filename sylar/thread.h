@@ -6,6 +6,7 @@
 #include<pthread.h>
 #include<string>
 #include<semaphore.h>
+#include<atomic>
 
 namespace sylar{
 
@@ -140,6 +141,16 @@ private:
     bool m_locked;
 };
 
+class NullMutex{
+public:
+    typedef ScopeLockImpl<NullMutex> Lock;
+    NullMutex(){}
+    ~NullMutex(){}
+    void lock(){}
+    void unlock(){}
+private:
+};
+
 class RWMutex{
 public:
     typedef ReadScopeLockImpl<RWMutex> ReadLock;
@@ -166,7 +177,61 @@ private:
     pthread_rwlock_t m_lock;
 };
 
+class NullRWMutex{
+public:
+    typedef ReadScopeLockImpl<NullMutex> ReadLock;
+    typedef WriteScopeLockImpl<NullMutex> WriteLock;
 
+    NullRWMutex(){}
+    ~NullRWMutex(){}
+
+    void rdlock(){}
+    void wrlock(){}
+    void unlock(){}
+};
+
+class Spinlock {
+public:
+    typedef ScopeLockImpl<Spinlock> Lock;
+    Spinlock() {
+        pthread_spin_init(&m_mutex,0);
+    }
+
+    ~Spinlock(){
+        pthread_spin_destroy(&m_mutex);
+    }
+
+    void lock(){
+        pthread_spin_lock(&m_mutex);
+    }
+    
+    void unlock(){
+        pthread_spin_unlock(&m_mutex);
+    }
+private:
+    pthread_spinlock_t m_mutex;
+};
+
+class CASlock {
+public:
+    typedef ScopeLockImpl<CASlock> Lock;
+    CASlock(){
+        m_mutex.clear();
+    }
+    ~CASlock(){
+
+    }
+
+    void lock(){
+        while(std::atomic_flag_test_and_set_explicit(&m_mutex,std::memory_order_acquire));
+    }
+
+    void unlock(){
+        std::atomic_flag_clear_explicit(&m_mutex,std::memory_order_release);
+    }
+private:
+    volatile std::atomic_flag m_mutex;
+};
 
 class Thread{
 public:
