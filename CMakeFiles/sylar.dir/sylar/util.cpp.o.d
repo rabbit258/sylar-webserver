@@ -199,4 +199,8 @@ CMakeFiles/sylar.dir/sylar/util.cpp.o: /home/fyx/sylar/sylar/util.cpp \
  /home/fyx/sylar/sylar/thread.h /usr/include/c++/11/functional \
  /usr/include/c++/11/bits/std_function.h /usr/include/semaphore.h \
  /usr/include/x86_64-linux-gnu/bits/semaphore.h \
- /usr/include/c++/11/atomic
+ /usr/include/c++/11/atomic /home/fyx/sylar/sylar/fiber.h \
+ /usr/include/ucontext.h \
+ /usr/include/x86_64-linux-gnu/bits/indirect-return.h \
+ /usr/include/x86_64-linux-gnu/sys/ucontext.h \
+ /usr/include/x86_64-linux-gnu/bits/types/stack_t.h

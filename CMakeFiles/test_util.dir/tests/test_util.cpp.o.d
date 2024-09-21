@@ -787,4 +787,8 @@ CMakeFiles/test_util.dir/tests/test_util.cpp.o: \
  /home/fyx/sylar/./thirdpart/include/yaml-cpp/node/parse.h \
  /home/fyx/sylar/./thirdpart/include/yaml-cpp/node/emit.h \
  /usr/include/c++/11/unordered_set \
- /usr/include/c++/11/bits/unordered_set.h /home/fyx/sylar/./sylar/macro.h
+ /usr/include/c++/11/bits/unordered_set.h /home/fyx/sylar/./sylar/macro.h \
+ /home/fyx/sylar/./sylar/fiber.h /usr/include/ucontext.h \
+ /usr/include/x86_64-linux-gnu/bits/indirect-return.h \
+ /usr/include/x86_64-linux-gnu/sys/ucontext.h \
+ /usr/include/x86_64-linux-gnu/bits/types/stack_t.h

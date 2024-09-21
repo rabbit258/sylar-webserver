@@ -894,8 +894,19 @@ CMakeFiles/test_thread.dir/tests/test_thread.cpp.o: tests/test_thread.cpp \
   thirdpart/include/yaml-cpp/node/emit.h \
   /usr/include/c++/11/unordered_set \
   /usr/include/c++/11/bits/unordered_set.h \
-  sylar/macro.h
+  sylar/macro.h \
+  sylar/fiber.h \
+  /usr/include/ucontext.h \
+  /usr/include/x86_64-linux-gnu/bits/indirect-return.h \
+  /usr/include/x86_64-linux-gnu/sys/ucontext.h \
+  /usr/include/x86_64-linux-gnu/bits/types/stack_t.h
 
+
+/usr/include/x86_64-linux-gnu/bits/types/stack_t.h:
+
+/usr/include/x86_64-linux-gnu/sys/ucontext.h:
+
+/usr/include/ucontext.h:
 
 /usr/include/c++/11/unordered_set:
 
@@ -1813,6 +1824,8 @@ thirdpart/include/yaml-cpp/node/detail/iterator_fwd.h:
 
 /usr/include/x86_64-linux-gnu/bits/select.h:
 
+sylar/fiber.h:
+
 /usr/include/x86_64-linux-gnu/bits/time.h:
 
 /usr/include/c++/11/backward/binders.h:
@@ -2036,6 +2049,8 @@ thirdpart/include/yaml-cpp/node/detail/node_iterator.h:
 /usr/include/boost/mpl/list/aux_/front.hpp:
 
 /usr/include/c++/11/bits/shared_ptr_base.h:
+
+/usr/include/x86_64-linux-gnu/bits/indirect-return.h:
 
 /usr/include/c++/11/set:
 

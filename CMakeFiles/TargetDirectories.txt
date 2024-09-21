@@ -3,5 +3,6 @@
 /home/fyx/sylar/CMakeFiles/test_config.dir
 /home/fyx/sylar/CMakeFiles/test_thread.dir
 /home/fyx/sylar/CMakeFiles/test_util.dir
+/home/fyx/sylar/CMakeFiles/test_fiber.dir
 /home/fyx/sylar/CMakeFiles/edit_cache.dir
 /home/fyx/sylar/CMakeFiles/rebuild_cache.dir
