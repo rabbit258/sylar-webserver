@@ -93,6 +93,14 @@ class FiberIdFormatItem : public LogFormatter::FormatItem{
         }
 };
 
+class ThreadNameFormat : public LogFormatter::FormatItem{
+    public:
+        ThreadNameFormat(const std::string & str = ""){}
+        void format(std::ostream& os,Logger::ptr logger,LogLevel::Level level,LogEvent::ptr event) override{
+            os << event->getThreadName();
+        }
+};
+
 class DateTimeIdFormatItem : public LogFormatter::FormatItem{
     public:
         DateTimeIdFormatItem(const std::string & format = "%Y-%m-%d %H:%M:%S")
@@ -159,7 +167,7 @@ class TabFormatItem : public LogFormatter::FormatItem{
 
 Logger::Logger(const std::string &name): m_name(name),m_level(LogLevel::DEBUG)
 {
-    m_formatter.reset(new LogFormatter("%d{%Y-%m-%d %H:%M:%S}%T%t%T%F%T[%p]%T[%c]%T%f:%l%T%m%n"));
+    m_formatter.reset(new LogFormatter("%d{%Y-%m-%d %H:%M:%S}%T%t%T%N%T%F%T[%p]%T[%c]%T%f:%l%T%m%n"));
 
 }
 
@@ -432,7 +440,8 @@ void LogFormatter::init()
         XX(f,FilenameFormatItem),
         XX(l,LineFormatItem),
         XX(T,TabFormatItem),
-        XX(F,FiberIdFormatItem)
+        XX(F,FiberIdFormatItem),
+        XX(N,ThreadNameFormat)
 #undef XX        
     };
 
@@ -465,9 +474,9 @@ void LogFormatter::init()
 }
 
 LogEvent::LogEvent(Logger::ptr logger,LogLevel::Level level,const char * file , int32_t line , uint32_t elapse,
-    uint32_t threadid,uint32_t fiberId,uint64_t time)
+    uint32_t threadid,uint32_t fiberId,uint64_t time,const std::string & thread_name)
     :m_file(file),m_line(line),m_elapse(elapse),m_threadId(threadid),m_fiberId(fiberId),
-     m_time(time),m_logger(logger),m_level(level)
+     m_time(time),m_threadName(thread_name),m_logger(logger),m_level(level)
 {
 }
 

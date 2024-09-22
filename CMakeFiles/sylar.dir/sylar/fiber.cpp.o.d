@@ -789,4 +789,4 @@ CMakeFiles/sylar.dir/sylar/fiber.cpp.o: /home/fyx/sylar/sylar/fiber.cpp \
  /usr/include/x86_64-linux-gnu/asm/unistd.h \
  /usr/include/x86_64-linux-gnu/asm/unistd_64.h \
  /usr/include/x86_64-linux-gnu/bits/syscall.h \
- /home/fyx/sylar/sylar/macro.h
+ /home/fyx/sylar/sylar/macro.h /home/fyx/sylar/sylar/scheduler.h

@@ -791,4 +791,5 @@ CMakeFiles/test_thread.dir/tests/test_thread.cpp.o: \
  /home/fyx/sylar/./sylar/fiber.h /usr/include/ucontext.h \
  /usr/include/x86_64-linux-gnu/bits/indirect-return.h \
  /usr/include/x86_64-linux-gnu/sys/ucontext.h \
- /usr/include/x86_64-linux-gnu/bits/types/stack_t.h
+ /usr/include/x86_64-linux-gnu/bits/types/stack_t.h \
+ /home/fyx/sylar/./sylar/scheduler.h

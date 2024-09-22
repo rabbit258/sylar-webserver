@@ -2,6 +2,7 @@
 #include "config.h"
 #include "macro.h"
 #include "log.h"
+#include "scheduler.h"
 #include <atomic>
 
 namespace sylar{
@@ -43,6 +44,7 @@ Fiber::Fiber()
 
 Fiber::~Fiber()
 {
+    SYLAR_LOG_DEBUG(g_logger) << "fiber::~fiber() : "<< m_id;
     --s_fiber_count;
     if(m_stack){
         SYLAR_ASSERT(m_state == TERM || m_state == INIT || m_state == EXCEPT);
@@ -68,7 +70,7 @@ Fiber::Fiber(std::function<void()> cb, size_t stacksize)
     if(getcontext(&m_ctx)) {
         SYLAR_ASSERT2(false,"getcontext");
     }
-    m_ctx.uc_link = nullptr;
+    m_ctx.uc_link = &t_threadFiber->m_ctx;
     m_ctx.uc_stack.ss_sp = m_stack;
     m_ctx.uc_stack.ss_size = m_stacksize;
 
@@ -84,7 +86,7 @@ void Fiber::reset(std::function<void()> cb)
     if(getcontext(&m_ctx)){
         SYLAR_ASSERT2(false,"getcontext");
     }
-    m_ctx.uc_link = nullptr;
+    m_ctx.uc_link = &t_threadFiber->m_ctx;
     m_ctx.uc_stack.ss_sp = m_stack;
     m_ctx.uc_stack.ss_size = m_stacksize;
 
@@ -101,10 +103,18 @@ void Fiber::swapIn()
 }
 void Fiber::swapOut()
 {
-    SetThis((t_threadFiber).get());
 
-    if(swapcontext(&m_ctx,&(t_threadFiber)->m_ctx)){
-        SYLAR_ASSERT2(false,"swapcontext");
+    if(this != Scheduler::GetMainFiber())
+    {
+        SetThis(Scheduler::GetMainFiber());
+        if(swapcontext(&m_ctx,&(t_threadFiber)->m_ctx)){
+            SYLAR_ASSERT2(false,"swapcontext");
+        }
+    } else {
+        SetThis((t_threadFiber).get());
+        if(swapcontext(&m_ctx,&t_threadFiber->m_ctx)){
+            SYLAR_ASSERT2(false,"swapcontext");
+        }
     }
 }
 void Fiber::SetThis(Fiber *f)
@@ -130,7 +140,7 @@ void Fiber::YieldToReady()
 void Fiber::YieldToHold()
 {
     Fiber::ptr cur = GetThis();
-    cur->m_state = HOLE;
+    cur->m_state = HOLD;
     cur->swapOut();
 }
 uint64_t Fiber::TotalFibers()
@@ -153,6 +163,11 @@ void Fiber::MainFunc()
         cur->m_state = EXCEPT;
         SYLAR_LOG_ERROR(g_logger) <<"Fiber Except";
     }
+    // auto raw_ptr = cur.get();
+    // cur.reset();
+    // raw_ptr->swapOut();
+
+    // SYLAR_ASSERT2(false,"never touch");
 }
 uint64_t Fiber::GetFiberId()
 {

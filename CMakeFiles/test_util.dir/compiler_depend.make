@@ -899,7 +899,8 @@ CMakeFiles/test_util.dir/tests/test_util.cpp.o: tests/test_util.cpp \
   /usr/include/ucontext.h \
   /usr/include/x86_64-linux-gnu/bits/indirect-return.h \
   /usr/include/x86_64-linux-gnu/sys/ucontext.h \
-  /usr/include/x86_64-linux-gnu/bits/types/stack_t.h
+  /usr/include/x86_64-linux-gnu/bits/types/stack_t.h \
+  sylar/scheduler.h
 
 
 /usr/include/x86_64-linux-gnu/bits/types/stack_t.h:
@@ -2505,6 +2506,8 @@ thirdpart/include/yaml-cpp/stlemitter.h:
 /usr/include/boost/mpl/aux_/config/overload_resolution.hpp:
 
 /usr/include/boost/mpl/and.hpp:
+
+sylar/scheduler.h:
 
 /usr/include/boost/mpl/aux_/preprocessed/gcc/apply_wrap.hpp:
 
