@@ -5,8 +5,8 @@
 namespace sylar{
 static Logger::ptr g_logger = SYLAR_LOG_NAME("system");
 
-static thread_local Scheduler* t_sheduler = nullptr;
-static thread_local Fiber* t_fiber = nullptr;
+static thread_local Scheduler* t_sheduler = nullptr;//线程指向调度器指针
+static thread_local Fiber* t_fiber = nullptr;//调度器用于运行run的协程
 
 Scheduler::Scheduler(size_t threads, bool use_caller, const std::string &name)
 :m_name(name)
@@ -19,7 +19,7 @@ Scheduler::Scheduler(size_t threads, bool use_caller, const std::string &name)
         SYLAR_ASSERT(GetThis() == nullptr);
         t_sheduler = this;
 
-        m_rootFiber.reset(new Fiber(std::bind(&Scheduler::run,this)));
+        m_rootFiber.reset(new Fiber(std::bind(&Scheduler::run,this),0,true));
         sylar::Thread::SetName(m_name);
 
         t_fiber = m_rootFiber.get();
@@ -64,9 +64,10 @@ void Scheduler::start()
     }
     lock.unlock();
 
-    if(m_rootFiber){
-        m_rootFiber->swapIn();
-    }
+    // if(m_rootFiber){
+    //     m_rootFiber->call();
+    //     SYLAR_LOG_INFO(g_logger) << "call out";
+    // }
 }
 void Scheduler::stop()
 {
@@ -97,10 +98,32 @@ void Scheduler::stop()
 
     if(m_rootFiber){
         tickle();
+    }
+
+    if(m_rootFiber){
+        // while(!stopping())
+        // {
+        //     if(m_rootFiber->getState() == Fiber::TERM
+        //             || m_rootFiber->getState() == Fiber::EXCEPT){
+        //         m_rootFiber.reset(new Fiber(std::bind(&Scheduler::run,this),0,true));
+        //         SYLAR_LOG_INFO(g_logger) << "root fiber is term, reset";
+        //         t_fiber = m_rootFiber.get();
+        //     }
+        //     m_rootFiber->call();
+        // }
+        if(!stopping()){
+            m_rootFiber->call();
+        }
     }   
 
-    if(stopping()){
-        return;
+    std::vector<Thread::ptr> thrs;
+    {
+        MutexType::Lock lock(m_mutex);
+        thrs.swap(m_threads);
+    }
+
+    for(auto &i:thrs){
+        i->join();
     }
 
     // if(exit_on_this_fiber){
@@ -114,7 +137,8 @@ void Scheduler::tickle()
 }
 void Scheduler::run()
 {
-    Fiber::GetThis();
+    SYLAR_LOG_DEBUG(g_logger) <<"run";
+    // Fiber::GetThis();
     setThis();
 
     if(sylar::GetThreadId() != m_rootThread){
@@ -128,6 +152,7 @@ void Scheduler::run()
     while(true){
         ft.reset();
         bool tickle_me = false;
+        bool is_active = false;
         {
             MutexType::Lock lock(m_mutex);
             auto it = m_fibers.begin();
@@ -146,6 +171,9 @@ void Scheduler::run()
 
                 ft = *it;
                 m_fibers.erase(it);
+                ++m_activeThreadCount;
+                is_active = true;
+                break;
             }
         }
 
@@ -154,8 +182,8 @@ void Scheduler::run()
         }
 
         if(ft.fiber && (ft.fiber->getState() !=Fiber::TERM
-                        || ft.fiber->getState() !=Fiber::EXCEPT)){
-            ++m_activeThreadCount;
+                        && ft.fiber->getState() !=Fiber::EXCEPT)){
+
             ft.fiber->swapIn();
             --m_activeThreadCount;
             if(ft.fiber->getState() == Fiber::READY){
@@ -170,10 +198,8 @@ void Scheduler::run()
                 cb_fiber->reset(ft.cb);
             } else {
                 cb_fiber.reset(new Fiber(ft.cb));
-                ft.cb = nullptr;
             }
             ft.reset();
-            ++m_activeThreadCount;
             cb_fiber->swapIn();
             --m_activeThreadCount;
             if(cb_fiber->getState() == Fiber::READY){
@@ -188,6 +214,10 @@ void Scheduler::run()
                 cb_fiber.reset();
             }
         } else {
+            if(is_active){
+                --m_activeThreadCount;
+                continue;
+            }
             if(idle_fiber->getState() == Fiber::TERM){
                 SYLAR_LOG_INFO(g_logger) << "idle fiber term";
                 break;
@@ -212,6 +242,9 @@ bool Scheduler::stopping()
 void Scheduler::idel()
 {
     SYLAR_LOG_INFO(g_logger) << "idel";
+    while(!stopping()){
+        sylar::Fiber::YieldToHold();
+    }
 }
 void Scheduler::setThis()
 {

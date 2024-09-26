@@ -59,12 +59,13 @@ protected:
     virtual void idel();
     void setThis();
 
-    std::vector<int> m_threadIds;
+    std::vector<int> m_threadIds;//线程池id
     size_t m_threadCount = 0;
     size_t m_activeThreadCount = 0;
     size_t m_idleThreadcount = 0;
     bool m_stopping = true;
     bool m_autoStop = false;
+    bool hasIdleThreads() { return m_idleThreadcount > 0; }
     int m_rootThread = 0;
 private:
 struct FiberAndThread {
@@ -102,11 +103,11 @@ struct FiberAndThread {
 };
 
     MutexType m_mutex;
-    std::vector<Thread::ptr> m_threads;
-    std::list<FiberAndThread> m_fibers;
-    std::map<int,std::list<FiberAndThread>> m_thrFibers;
-    std::string m_name;
-    Fiber::ptr m_rootFiber;
+    std::vector<Thread::ptr> m_threads;//线程池
+    std::list<FiberAndThread> m_fibers;//任务池
+    std::map<int,std::list<FiberAndThread>> m_thrFibers;//指定线程的任务
+    std::string m_name;//调度器名字
+    Fiber::ptr m_rootFiber;//主协程
 
     template<class FiberOrCb>
     bool scheduleNoLock(FiberOrCb fc,int thread){

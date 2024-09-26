@@ -32,6 +32,7 @@ using StackAllocator = MallocStackAllocator;
 
 Fiber::Fiber()
 {
+    SYLAR_LOG_DEBUG(g_logger) << "fiber::fiber() : "<< m_id;
     m_state = EXEC;
     SetThis(this);
 
@@ -60,9 +61,10 @@ Fiber::~Fiber()
     }
 }
 
-Fiber::Fiber(std::function<void()> cb, size_t stacksize)
+Fiber::Fiber(std::function<void()> cb, size_t stacksize, bool use_caller)
     :m_id(++s_fiber_id)
     ,m_cb(cb){
+    SYLAR_LOG_DEBUG(g_logger) << "fiber::fiber() : "<< m_id;
     ++s_fiber_count;
     m_stacksize = stacksize ? stacksize:g_fiber_stack_size->getValue(); 
 
@@ -70,11 +72,15 @@ Fiber::Fiber(std::function<void()> cb, size_t stacksize)
     if(getcontext(&m_ctx)) {
         SYLAR_ASSERT2(false,"getcontext");
     }
-    m_ctx.uc_link = &t_threadFiber->m_ctx;
+    m_ctx.uc_link = nullptr;
     m_ctx.uc_stack.ss_sp = m_stack;
     m_ctx.uc_stack.ss_size = m_stacksize;
 
-    makecontext(&m_ctx,&Fiber::MainFunc,0);
+    if(!use_caller){
+        makecontext(&m_ctx,&Fiber::MainFunc,0);
+    } else {
+        makecontext(&m_ctx,&Fiber::CallerMainFunc,0);
+    }
 }
 void Fiber::reset(std::function<void()> cb)
 {
@@ -86,18 +92,34 @@ void Fiber::reset(std::function<void()> cb)
     if(getcontext(&m_ctx)){
         SYLAR_ASSERT2(false,"getcontext");
     }
-    m_ctx.uc_link = &t_threadFiber->m_ctx;
+    m_ctx.uc_link = nullptr;
     m_ctx.uc_stack.ss_sp = m_stack;
     m_ctx.uc_stack.ss_size = m_stacksize;
 
     makecontext(&m_ctx,&Fiber::MainFunc,0);
 }
+void Fiber::call()
+{
+    SetThis(this);
+    SYLAR_ASSERT(m_state != EXEC);
+    m_state = EXEC;
+    if(swapcontext(&(t_threadFiber)->m_ctx,&m_ctx)){
+        SYLAR_ASSERT2(false,"swapcontext");
+    }
+}
+void Fiber::back()
+{
+    SetThis((t_threadFiber).get());
+    if(swapcontext(&m_ctx,&t_threadFiber->m_ctx)){
+        SYLAR_ASSERT2(false,"swapcontext");
+    }
+}
 void Fiber::swapIn()
 {
     SetThis(this);
     SYLAR_ASSERT(m_state != EXEC);
-
-    if(swapcontext(&(t_threadFiber)->m_ctx,&m_ctx)){
+    m_state = EXEC;
+    if(swapcontext(&(Scheduler::GetMainFiber())->m_ctx,&m_ctx)){
         SYLAR_ASSERT2(false,"swapcontext");
     }
 }
@@ -107,7 +129,7 @@ void Fiber::swapOut()
     if(this != Scheduler::GetMainFiber())
     {
         SetThis(Scheduler::GetMainFiber());
-        if(swapcontext(&m_ctx,&(t_threadFiber)->m_ctx)){
+        if(swapcontext(&m_ctx,&Scheduler::GetMainFiber()->m_ctx)){
             SYLAR_ASSERT2(false,"swapcontext");
         }
     } else {
@@ -147,7 +169,24 @@ uint64_t Fiber::TotalFibers()
 {
     return s_fiber_count;
 }
-
+void Fiber::CallerMainFunc(){
+        Fiber::ptr cur = GetThis();
+    SYLAR_ASSERT(cur);
+    try {
+        cur->m_cb();
+        cur->m_cb = nullptr;
+        cur->m_state = TERM;
+    } catch(std::exception &ex){
+        cur->m_state = EXCEPT;
+        SYLAR_LOG_ERROR(g_logger) <<"Fiber Except" << ex.what() ;
+    } catch(...) {
+        cur->m_state = EXCEPT;
+        SYLAR_LOG_ERROR(g_logger) <<"Fiber Except";
+    }
+    auto raw_ptr = cur.get();
+    cur.reset();
+    raw_ptr->back();
+}
 void Fiber::MainFunc()
 {
     Fiber::ptr cur = GetThis();
@@ -163,9 +202,9 @@ void Fiber::MainFunc()
         cur->m_state = EXCEPT;
         SYLAR_LOG_ERROR(g_logger) <<"Fiber Except";
     }
-    // auto raw_ptr = cur.get();
-    // cur.reset();
-    // raw_ptr->swapOut();
+    auto raw_ptr = cur.get();
+    cur.reset();
+    raw_ptr->swapOut();
 
     // SYLAR_ASSERT2(false,"never touch");
 }
