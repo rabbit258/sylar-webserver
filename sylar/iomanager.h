@@ -1,9 +1,10 @@
 #pragma once
 
 #include "scheduler.h"
+#include "timer.h"
 
 namespace sylar{
-class IOmanager : public Scheduler{
+class IOmanager : public Scheduler,public TimerManager{
 public:
     typedef std::shared_ptr<IOmanager> ptr;
     typedef RWMutex RWMutexType;
@@ -27,9 +28,11 @@ public:
     static IOmanager * GetThis();
 
 protected:
-    virtual void tickle() override;
-    virtual bool stopping() override;
-    virtual void idel() override;
+    void tickle() override;
+    bool stopping() override;
+    bool stopping(uint64_t & timeout);
+    void idel() override;
+    void onTimerInsertedAtFront() override;
 
     void contextResize(size_t size);
 private:

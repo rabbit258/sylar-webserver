@@ -17,6 +17,9 @@ set(LIB_SRC
     sylar/fiber.cpp
     sylar/scheduler.cpp
     sylar/iomanager.cpp
+    sylar/timer.cpp
+    sylar/hook.cpp
+    sylar/fd_manager.cpp
     )
 add_library(sylar SHARED ${LIB_SRC})
 force_redefine_file_macro_for(sylar) #__FILE__
@@ -63,6 +66,11 @@ add_executable(test_iomanager tests/test_iomanager.cpp)
 add_dependencies(test_iomanager sylar)
 force_redefine_file_macro_for(test_iomanager) #__FILE__
 target_link_libraries(test_iomanager ${LIB_LIB})
+
+add_executable(test_hook tests/test_hook.cpp)
+add_dependencies(test_hook sylar)
+force_redefine_file_macro_for(test_hook) #__FILE__
+target_link_libraries(test_hook ${LIB_LIB})
 
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)

@@ -256,6 +256,7 @@ CMakeFiles/test_config.dir/tests/test_config.cpp.o
  /usr/include/semaphore.h
  /usr/include/x86_64-linux-gnu/bits/semaphore.h
  /usr/include/c++/11/atomic
+ /home/fyx/sylar/sylar/noncopyable.h
  /home/fyx/sylar/sylar/config.h
  /usr/include/boost/lexical_cast.hpp
  /usr/include/boost/config.hpp

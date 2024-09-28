@@ -198,6 +198,7 @@ CMakeFiles/test_iomanager.dir/tests/test_iomanager.cpp.o: tests/test_iomanager.c
   /usr/include/semaphore.h \
   /usr/include/x86_64-linux-gnu/bits/semaphore.h \
   /usr/include/c++/11/atomic \
+  sylar/noncopyable.h \
   sylar/log.h \
   /usr/include/c++/11/list \
   /usr/include/c++/11/bits/stl_list.h \
@@ -902,6 +903,7 @@ CMakeFiles/test_iomanager.dir/tests/test_iomanager.cpp.o: tests/test_iomanager.c
   /usr/include/x86_64-linux-gnu/bits/types/stack_t.h \
   sylar/scheduler.h \
   sylar/iomanager.h \
+  sylar/timer.h \
   /usr/include/x86_64-linux-gnu/sys/socket.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_iovec.h \
   /usr/include/x86_64-linux-gnu/bits/socket.h \
@@ -951,6 +953,8 @@ CMakeFiles/test_iomanager.dir/tests/test_iomanager.cpp.o: tests/test_iomanager.c
 /usr/include/x86_64-linux-gnu/asm/posix_types.h:
 
 /usr/include/linux/stddef.h:
+
+sylar/timer.h:
 
 sylar/iomanager.h:
 
@@ -1436,7 +1440,7 @@ thirdpart/include/yaml-cpp/emitterdef.h:
 
 /usr/include/boost/range/detail/has_member_size.hpp:
 
-/usr/include/boost/lexical_cast.hpp:
+/usr/include/boost/type_traits/add_volatile.hpp:
 
 sylar/config.h:
 
@@ -1900,6 +1904,10 @@ thirdpart/include/yaml-cpp/node/detail/iterator_fwd.h:
 
 /usr/include/boost/type_traits/is_unsigned.hpp:
 
+sylar/noncopyable.h:
+
+/usr/include/boost/preprocessor/detail/check.hpp:
+
 /usr/include/boost/preprocessor/repetition/enum_trailing_params.hpp:
 
 /usr/include/linux/falloc.h:
@@ -2244,6 +2252,8 @@ sylar/thread.h:
 
 /usr/include/asm-generic/errno-base.h:
 
+/usr/include/boost/lexical_cast.hpp:
+
 /usr/include/boost/mpl/deref.hpp:
 
 /usr/include/boost/mpl/list.hpp:
@@ -2491,8 +2501,6 @@ sylar/macro.h:
 /usr/include/boost/mpl/aux_/arithmetic_op.hpp:
 
 /usr/include/boost/type_traits/is_const.hpp:
-
-/usr/include/boost/preprocessor/detail/check.hpp:
 
 /usr/include/boost/preprocessor/logical/compl.hpp:
 
@@ -2787,5 +2795,3 @@ thirdpart/include/yaml-cpp/ostream_wrapper.h:
 /usr/include/boost/mpl/aux_/preprocessed/gcc/advance_forward.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/xopen_lim.h:
-
-/usr/include/boost/type_traits/add_volatile.hpp:

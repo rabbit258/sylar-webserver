@@ -254,7 +254,8 @@ CMakeFiles/test.dir/tests/test.cpp.o: tests/test.cpp \
   /usr/include/c++/11/bits/std_function.h \
   /usr/include/semaphore.h \
   /usr/include/x86_64-linux-gnu/bits/semaphore.h \
-  /usr/include/c++/11/atomic
+  /usr/include/c++/11/atomic \
+  sylar/noncopyable.h
 
 
 /usr/include/x86_64-linux-gnu/bits/unistd_ext.h:
@@ -582,6 +583,8 @@ tests/test.cpp:
 /usr/include/c++/11/map:
 
 /usr/include/c++/11/bits/range_access.h:
+
+sylar/noncopyable.h:
 
 /usr/include/x86_64-linux-gnu/bits/confname.h:
 

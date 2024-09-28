@@ -12,4 +12,8 @@ uint32_t GetFiberId();
 
 void Backtrace(std::vector<std::string> & bt,int size,int skip);
 std::string BacktracetoString(int size,int skip = 2,const std::string& prefix ="");
+
+//time stuff
+uint64_t GetCurrentMS();
+uint64_t GetCurrentUS();
 }

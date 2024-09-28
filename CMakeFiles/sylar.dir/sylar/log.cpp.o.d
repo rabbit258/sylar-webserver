@@ -200,9 +200,10 @@ CMakeFiles/sylar.dir/sylar/log.cpp.o: /home/fyx/sylar/sylar/log.cpp \
  /usr/include/linux/close_range.h /home/fyx/sylar/sylar/thread.h \
  /usr/include/c++/11/functional /usr/include/c++/11/bits/std_function.h \
  /usr/include/semaphore.h /usr/include/x86_64-linux-gnu/bits/semaphore.h \
- /usr/include/c++/11/atomic /usr/include/c++/11/iostream \
- /home/fyx/sylar/sylar/config.h /usr/include/boost/lexical_cast.hpp \
- /usr/include/boost/config.hpp /usr/include/boost/config/user.hpp \
+ /usr/include/c++/11/atomic /home/fyx/sylar/sylar/noncopyable.h \
+ /usr/include/c++/11/iostream /home/fyx/sylar/sylar/config.h \
+ /usr/include/boost/lexical_cast.hpp /usr/include/boost/config.hpp \
+ /usr/include/boost/config/user.hpp \
  /usr/include/boost/config/detail/select_compiler_config.hpp \
  /usr/include/boost/config/compiler/gcc.hpp /usr/include/c++/11/cstddef \
  /usr/include/boost/config/detail/select_stdlib_config.hpp \

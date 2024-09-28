@@ -255,6 +255,7 @@ CMakeFiles/test_config.dir/tests/test_config.cpp.o: tests/test_config.cpp \
   /usr/include/semaphore.h \
   /usr/include/x86_64-linux-gnu/bits/semaphore.h \
   /usr/include/c++/11/atomic \
+  sylar/noncopyable.h \
   sylar/config.h \
   /usr/include/boost/lexical_cast.hpp \
   /usr/include/boost/config.hpp \
@@ -1368,6 +1369,8 @@ thirdpart/include/yaml-cpp/emitterdef.h:
 
 /usr/include/boost/cstdint.hpp:
 
+/usr/include/boost/range/detail/has_member_size.hpp:
+
 /usr/include/boost/lexical_cast.hpp:
 
 sylar/config.h:
@@ -1840,6 +1843,10 @@ sylar/singleton.h:
 
 /usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
 
+sylar/noncopyable.h:
+
+/usr/include/boost/preprocessor/detail/check.hpp:
+
 /usr/include/x86_64-linux-gnu/bits/confname.h:
 
 /usr/include/boost/type_traits/is_unsigned.hpp:
@@ -2192,8 +2199,6 @@ thirdpart/include/yaml-cpp/node/parse.h:
 
 /usr/include/boost/range/iterator_range_core.hpp:
 
-/usr/include/boost/range/detail/has_member_size.hpp:
-
 /usr/include/boost/detail/workaround.hpp:
 
 /usr/include/boost/config/workaround.hpp:
@@ -2391,8 +2396,6 @@ thirdpart/include/yaml-cpp/noexcept.h:
 /usr/include/boost/mpl/aux_/arithmetic_op.hpp:
 
 /usr/include/boost/type_traits/is_const.hpp:
-
-/usr/include/boost/preprocessor/detail/check.hpp:
 
 /usr/include/boost/preprocessor/logical/compl.hpp:
 

@@ -1,6 +1,7 @@
 #include "scheduler.h"
 #include "log.h"
 #include "macro.h"
+#include "hook.h"
 
 namespace sylar{
 static Logger::ptr g_logger = SYLAR_LOG_NAME("system");
@@ -137,6 +138,7 @@ void Scheduler::tickle()
 }
 void Scheduler::run()
 {
+    set_hook_enable(true);
     SYLAR_LOG_DEBUG(g_logger) <<"run";
     // Fiber::GetThis();
     setThis();

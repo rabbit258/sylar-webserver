@@ -10,12 +10,6 @@ sylar::Logger::ptr g_logger = SYLAR_LOG_ROOT();
 
 void test_fiber(){
     SYLAR_LOG_INFO(g_logger) << "test_fiber";
-}
-
-void test1(){
-    sylar::IOmanager iom(1,false);
-    iom.schedule(&test_fiber);
-
     int fd = socket(AF_INET,SOCK_STREAM,0);
     fcntl(fd,F_SETFL,O_NONBLOCK);
 
@@ -41,7 +35,26 @@ void test1(){
     }
 }
 
+void test1(){
+    sylar::IOmanager iom(2,false);
+    iom.schedule(&test_fiber);
+}
+static sylar::Timer::ptr timer;
+void test_timer(){
+    sylar::IOmanager iom(1,false);
+    timer = iom.addTimer(1000,[](){
+        SYLAR_LOG_INFO(g_logger) << "hello sylar!";
+        static int i =0;
+        if(++i == 3){
+            SYLAR_LOG_INFO(g_logger) << timer.use_count();
+            timer->reset(2000,false);
+        }
+    },true);
+    SYLAR_LOG_INFO(g_logger) << timer.use_count();
+}
+
 int main(int argc,char ** argv){
-    test1();
+    // test1();
+    test_timer();
     return 0;
 }

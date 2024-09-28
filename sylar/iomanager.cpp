@@ -86,6 +86,7 @@ void IOmanager::contextResize(size_t size)
 }
 int IOmanager::addEvent(int fd, Event event, std::function<void()> cb)
 {
+    SYLAR_LOG_INFO(g_logger) << "addevent : fd = "<< fd << " event = "<< (int)event;
     FdContext* fd_ctx=nullptr;
     RWMutexType::ReadLock lock(m_mutex);
     if((int)m_fdContexts.size() > fd){
@@ -243,7 +244,7 @@ IOmanager *IOmanager::GetThis()
 }
 void IOmanager::tickle()
 {
-    if(hasIdleThreads()){
+    if(!hasIdleThreads()){
         return;
     }
     int rt = write(m_tickleFds[1],"T",1);
@@ -251,8 +252,15 @@ void IOmanager::tickle()
 }
 bool IOmanager::stopping()
 {
-    return Scheduler::stopping()
-        && m_pendingEventCount == 0;
+    uint64_t timeout = 0;
+    return stopping(timeout);
+}
+bool IOmanager::stopping(uint64_t &timeout)
+{
+    timeout = getNextTimer();
+    return timeout == ~0ull 
+            && m_pendingEventCount ==0
+            && Scheduler::stopping();
 }
 void IOmanager::idel()
 {
@@ -262,22 +270,38 @@ void IOmanager::idel()
     });
 
     while(true){
-        if(stopping()){
+        uint64_t next_timeout = 0;
+        if(stopping(next_timeout)){
             SYLAR_LOG_INFO(g_logger) << "name = " << getName() << " idle stopping exit";
             break;
         }
 
+
+
         int rt = 0;
         do{
-            static const int MAX_TIMEOUT = 5000;
-            rt = epoll_wait(m_epfd , events , 64 ,MAX_TIMEOUT);
+            static const int MAX_TIMEOUT = 3000;
+            if(next_timeout != ~0ull){
+                next_timeout = (int)next_timeout > MAX_TIMEOUT ? MAX_TIMEOUT:next_timeout;
+            } else {
+                next_timeout = MAX_TIMEOUT;
+            }
 
+            rt = epoll_wait(m_epfd , events , 64 ,(int)next_timeout);
+            // SYLAR_LOG_INFO(g_logger) << "epoll_wait has response! rt = " << rt;
             if(rt< 0 && errno == EINTR){
 
             } else {
                 break;
             }
         }while(true);
+
+        std::vector<std::function<void()>> cbs;
+        listExpiredCb(cbs);
+        if(!cbs.empty()){
+            schedule(cbs.begin(),cbs.end());
+            cbs.clear();
+        }
 
         for(int i = 0;i<rt;++i){
             epoll_event & event = events[i];
@@ -333,5 +357,9 @@ void IOmanager::idel()
     }
 }
 
+void IOmanager::onTimerInsertedAtFront() 
+{
+    tickle();
 
+}
 }

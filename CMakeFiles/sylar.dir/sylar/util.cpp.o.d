@@ -155,9 +155,8 @@ CMakeFiles/sylar.dir/sylar/util.cpp.o: /home/fyx/sylar/sylar/util.cpp \
  /usr/include/x86_64-linux-gnu/bits/stdio.h \
  /usr/include/x86_64-linux-gnu/bits/stdio2.h \
  /usr/include/c++/11/bits/charconv.h \
- /usr/include/c++/11/bits/basic_string.tcc /usr/include/execinfo.h \
- /home/fyx/sylar/sylar/log.h /usr/include/c++/11/memory \
- /usr/include/c++/11/bits/stl_tempbuf.h \
+ /usr/include/c++/11/bits/basic_string.tcc /home/fyx/sylar/sylar/log.h \
+ /usr/include/c++/11/memory /usr/include/c++/11/bits/stl_tempbuf.h \
  /usr/include/c++/11/bits/stl_raw_storage_iter.h \
  /usr/include/c++/11/bits/align.h /usr/include/c++/11/bit \
  /usr/include/c++/11/bits/shared_ptr.h \
@@ -199,8 +198,9 @@ CMakeFiles/sylar.dir/sylar/util.cpp.o: /home/fyx/sylar/sylar/util.cpp \
  /home/fyx/sylar/sylar/thread.h /usr/include/c++/11/functional \
  /usr/include/c++/11/bits/std_function.h /usr/include/semaphore.h \
  /usr/include/x86_64-linux-gnu/bits/semaphore.h \
- /usr/include/c++/11/atomic /home/fyx/sylar/sylar/fiber.h \
- /usr/include/ucontext.h \
+ /usr/include/c++/11/atomic /home/fyx/sylar/sylar/noncopyable.h \
+ /home/fyx/sylar/sylar/fiber.h /usr/include/ucontext.h \
  /usr/include/x86_64-linux-gnu/bits/indirect-return.h \
  /usr/include/x86_64-linux-gnu/sys/ucontext.h \
- /usr/include/x86_64-linux-gnu/bits/types/stack_t.h
+ /usr/include/x86_64-linux-gnu/bits/types/stack_t.h \
+ /usr/include/execinfo.h /usr/include/x86_64-linux-gnu/sys/time.h

@@ -223,6 +223,19 @@ test_iomanager/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_iomanager.dir/build.make CMakeFiles/test_iomanager.dir/build
 .PHONY : test_iomanager/fast
 
+#=============================================================================
+# Target rules for targets named test_hook
+
+# Build rule for target.
+test_hook: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_hook
+.PHONY : test_hook
+
+# fast build rule for target.
+test_hook/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_hook.dir/build.make CMakeFiles/test_hook.dir/build
+.PHONY : test_hook/fast
+
 sylar/config.o: sylar/config.cpp.o
 .PHONY : sylar/config.o
 
@@ -247,6 +260,30 @@ sylar/config.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/config.cpp.s
 .PHONY : sylar/config.cpp.s
 
+sylar/fd_manager.o: sylar/fd_manager.cpp.o
+.PHONY : sylar/fd_manager.o
+
+# target to build an object file
+sylar/fd_manager.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/fd_manager.cpp.o
+.PHONY : sylar/fd_manager.cpp.o
+
+sylar/fd_manager.i: sylar/fd_manager.cpp.i
+.PHONY : sylar/fd_manager.i
+
+# target to preprocess a source file
+sylar/fd_manager.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/fd_manager.cpp.i
+.PHONY : sylar/fd_manager.cpp.i
+
+sylar/fd_manager.s: sylar/fd_manager.cpp.s
+.PHONY : sylar/fd_manager.s
+
+# target to generate assembly for a file
+sylar/fd_manager.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/fd_manager.cpp.s
+.PHONY : sylar/fd_manager.cpp.s
+
 sylar/fiber.o: sylar/fiber.cpp.o
 .PHONY : sylar/fiber.o
 
@@ -270,6 +307,30 @@ sylar/fiber.s: sylar/fiber.cpp.s
 sylar/fiber.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/fiber.cpp.s
 .PHONY : sylar/fiber.cpp.s
+
+sylar/hook.o: sylar/hook.cpp.o
+.PHONY : sylar/hook.o
+
+# target to build an object file
+sylar/hook.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/hook.cpp.o
+.PHONY : sylar/hook.cpp.o
+
+sylar/hook.i: sylar/hook.cpp.i
+.PHONY : sylar/hook.i
+
+# target to preprocess a source file
+sylar/hook.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/hook.cpp.i
+.PHONY : sylar/hook.cpp.i
+
+sylar/hook.s: sylar/hook.cpp.s
+.PHONY : sylar/hook.s
+
+# target to generate assembly for a file
+sylar/hook.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/hook.cpp.s
+.PHONY : sylar/hook.cpp.s
 
 sylar/iomanager.o: sylar/iomanager.cpp.o
 .PHONY : sylar/iomanager.o
@@ -367,6 +428,30 @@ sylar/thread.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/thread.cpp.s
 .PHONY : sylar/thread.cpp.s
 
+sylar/timer.o: sylar/timer.cpp.o
+.PHONY : sylar/timer.o
+
+# target to build an object file
+sylar/timer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/timer.cpp.o
+.PHONY : sylar/timer.cpp.o
+
+sylar/timer.i: sylar/timer.cpp.i
+.PHONY : sylar/timer.i
+
+# target to preprocess a source file
+sylar/timer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/timer.cpp.i
+.PHONY : sylar/timer.cpp.i
+
+sylar/timer.s: sylar/timer.cpp.s
+.PHONY : sylar/timer.s
+
+# target to generate assembly for a file
+sylar/timer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sylar.dir/build.make CMakeFiles/sylar.dir/sylar/timer.cpp.s
+.PHONY : sylar/timer.cpp.s
+
 sylar/util.o: sylar/util.cpp.o
 .PHONY : sylar/util.o
 
@@ -462,6 +547,30 @@ tests/test_fiber.s: tests/test_fiber.cpp.s
 tests/test_fiber.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_fiber.dir/build.make CMakeFiles/test_fiber.dir/tests/test_fiber.cpp.s
 .PHONY : tests/test_fiber.cpp.s
+
+tests/test_hook.o: tests/test_hook.cpp.o
+.PHONY : tests/test_hook.o
+
+# target to build an object file
+tests/test_hook.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_hook.dir/build.make CMakeFiles/test_hook.dir/tests/test_hook.cpp.o
+.PHONY : tests/test_hook.cpp.o
+
+tests/test_hook.i: tests/test_hook.cpp.i
+.PHONY : tests/test_hook.i
+
+# target to preprocess a source file
+tests/test_hook.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_hook.dir/build.make CMakeFiles/test_hook.dir/tests/test_hook.cpp.i
+.PHONY : tests/test_hook.cpp.i
+
+tests/test_hook.s: tests/test_hook.cpp.s
+.PHONY : tests/test_hook.s
+
+# target to generate assembly for a file
+tests/test_hook.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_hook.dir/build.make CMakeFiles/test_hook.dir/tests/test_hook.cpp.s
+.PHONY : tests/test_hook.cpp.s
 
 tests/test_iomanager.o: tests/test_iomanager.cpp.o
 .PHONY : tests/test_iomanager.o
@@ -571,6 +680,7 @@ help:
 	@echo "... test"
 	@echo "... test_config"
 	@echo "... test_fiber"
+	@echo "... test_hook"
 	@echo "... test_iomanager"
 	@echo "... test_scheduler"
 	@echo "... test_thread"
@@ -578,9 +688,15 @@ help:
 	@echo "... sylar/config.o"
 	@echo "... sylar/config.i"
 	@echo "... sylar/config.s"
+	@echo "... sylar/fd_manager.o"
+	@echo "... sylar/fd_manager.i"
+	@echo "... sylar/fd_manager.s"
 	@echo "... sylar/fiber.o"
 	@echo "... sylar/fiber.i"
 	@echo "... sylar/fiber.s"
+	@echo "... sylar/hook.o"
+	@echo "... sylar/hook.i"
+	@echo "... sylar/hook.s"
 	@echo "... sylar/iomanager.o"
 	@echo "... sylar/iomanager.i"
 	@echo "... sylar/iomanager.s"
@@ -593,6 +709,9 @@ help:
 	@echo "... sylar/thread.o"
 	@echo "... sylar/thread.i"
 	@echo "... sylar/thread.s"
+	@echo "... sylar/timer.o"
+	@echo "... sylar/timer.i"
+	@echo "... sylar/timer.s"
 	@echo "... sylar/util.o"
 	@echo "... sylar/util.i"
 	@echo "... sylar/util.s"
@@ -605,6 +724,9 @@ help:
 	@echo "... tests/test_fiber.o"
 	@echo "... tests/test_fiber.i"
 	@echo "... tests/test_fiber.s"
+	@echo "... tests/test_hook.o"
+	@echo "... tests/test_hook.i"
+	@echo "... tests/test_hook.s"
 	@echo "... tests/test_iomanager.o"
 	@echo "... tests/test_iomanager.i"
 	@echo "... tests/test_iomanager.s"

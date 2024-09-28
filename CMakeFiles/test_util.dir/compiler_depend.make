@@ -198,6 +198,7 @@ CMakeFiles/test_util.dir/tests/test_util.cpp.o: tests/test_util.cpp \
   /usr/include/semaphore.h \
   /usr/include/x86_64-linux-gnu/bits/semaphore.h \
   /usr/include/c++/11/atomic \
+  sylar/noncopyable.h \
   sylar/log.h \
   /usr/include/c++/11/list \
   /usr/include/c++/11/bits/stl_list.h \
@@ -1377,7 +1378,7 @@ thirdpart/include/yaml-cpp/emitterdef.h:
 
 /usr/include/boost/range/detail/has_member_size.hpp:
 
-/usr/include/boost/lexical_cast.hpp:
+/usr/include/boost/type_traits/add_volatile.hpp:
 
 sylar/config.h:
 
@@ -1887,6 +1888,10 @@ thirdpart/include/yaml-cpp/dll.h:
 
 /usr/include/boost/type_traits/is_unsigned.hpp:
 
+sylar/noncopyable.h:
+
+/usr/include/boost/preprocessor/detail/check.hpp:
+
 /usr/include/boost/numeric/conversion/detail/numeric_cast_traits.hpp:
 
 /usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
@@ -2165,6 +2170,8 @@ sylar/thread.h:
 
 /usr/include/asm-generic/errno-base.h:
 
+/usr/include/boost/lexical_cast.hpp:
+
 /usr/include/boost/mpl/deref.hpp:
 
 /usr/include/boost/mpl/list.hpp:
@@ -2410,8 +2417,6 @@ sylar/macro.h:
 /usr/include/boost/mpl/aux_/arithmetic_op.hpp:
 
 /usr/include/boost/type_traits/is_const.hpp:
-
-/usr/include/boost/preprocessor/detail/check.hpp:
 
 /usr/include/boost/preprocessor/logical/compl.hpp:
 
@@ -2700,5 +2705,3 @@ thirdpart/include/yaml-cpp/ostream_wrapper.h:
 /usr/include/boost/mpl/aux_/preprocessed/gcc/advance_forward.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/xopen_lim.h:
-
-/usr/include/boost/type_traits/add_volatile.hpp:

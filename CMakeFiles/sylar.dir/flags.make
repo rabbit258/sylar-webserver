@@ -22,3 +22,9 @@ CXX_FLAGS =  -rdynamic -O3 -g -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unus
 
 # Custom defines: CMakeFiles/sylar.dir/sylar/iomanager.cpp.o_DEFINES = __FILE__="sylar/iomanager.cpp"
 
+# Custom defines: CMakeFiles/sylar.dir/sylar/timer.cpp.o_DEFINES = __FILE__="sylar/timer.cpp"
+
+# Custom defines: CMakeFiles/sylar.dir/sylar/hook.cpp.o_DEFINES = __FILE__="sylar/hook.cpp"
+
+# Custom defines: CMakeFiles/sylar.dir/sylar/fd_manager.cpp.o_DEFINES = __FILE__="sylar/fd_manager.cpp"
+
