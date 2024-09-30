@@ -7,5 +7,7 @@
 /home/fyx/sylar/CMakeFiles/test_scheduler.dir
 /home/fyx/sylar/CMakeFiles/test_iomanager.dir
 /home/fyx/sylar/CMakeFiles/test_hook.dir
+/home/fyx/sylar/CMakeFiles/test_address.dir
+/home/fyx/sylar/CMakeFiles/test_socket.dir
 /home/fyx/sylar/CMakeFiles/edit_cache.dir
 /home/fyx/sylar/CMakeFiles/rebuild_cache.dir

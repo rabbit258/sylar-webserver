@@ -20,6 +20,8 @@ set(LIB_SRC
     sylar/timer.cpp
     sylar/hook.cpp
     sylar/fd_manager.cpp
+    sylar/address.cpp
+    sylar/socket.cpp
     )
 add_library(sylar SHARED ${LIB_SRC})
 force_redefine_file_macro_for(sylar) #__FILE__
@@ -71,6 +73,16 @@ add_executable(test_hook tests/test_hook.cpp)
 add_dependencies(test_hook sylar)
 force_redefine_file_macro_for(test_hook) #__FILE__
 target_link_libraries(test_hook ${LIB_LIB})
+
+add_executable(test_address tests/test_address.cpp)
+add_dependencies(test_address sylar)
+force_redefine_file_macro_for(test_address) #__FILE__
+target_link_libraries(test_address ${LIB_LIB})
+
+add_executable(test_socket tests/test_socket.cpp)
+add_dependencies(test_socket sylar)
+force_redefine_file_macro_for(test_socket) #__FILE__
+target_link_libraries(test_socket ${LIB_LIB})
 
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)

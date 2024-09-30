@@ -86,7 +86,7 @@ void IOmanager::contextResize(size_t size)
 }
 int IOmanager::addEvent(int fd, Event event, std::function<void()> cb)
 {
-    SYLAR_LOG_INFO(g_logger) << "addevent : fd = "<< fd << " event = "<< (int)event;
+    // SYLAR_LOG_INFO(g_logger) << "addevent : fd = "<< fd << " event = "<< (int)event;
     FdContext* fd_ctx=nullptr;
     RWMutexType::ReadLock lock(m_mutex);
     if((int)m_fdContexts.size() > fd){
