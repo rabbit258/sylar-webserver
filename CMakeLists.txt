@@ -22,6 +22,11 @@ set(LIB_SRC
     sylar/fd_manager.cpp
     sylar/address.cpp
     sylar/socket.cpp
+    sylar/bytearray.cpp
+    sylar/http/http.cpp
+    sylar/http/http_parser.cpp
+    sylar/http/http11_parser.rl.cpp
+    sylar/http/httpclient_parser.rl.cpp
     )
 add_library(sylar SHARED ${LIB_SRC})
 force_redefine_file_macro_for(sylar) #__FILE__
@@ -83,6 +88,21 @@ add_executable(test_socket tests/test_socket.cpp)
 add_dependencies(test_socket sylar)
 force_redefine_file_macro_for(test_socket) #__FILE__
 target_link_libraries(test_socket ${LIB_LIB})
+
+add_executable(test_bytearray tests/test_bytearray.cpp)
+add_dependencies(test_bytearray sylar)
+force_redefine_file_macro_for(test_bytearray) #__FILE__
+target_link_libraries(test_bytearray ${LIB_LIB})
+
+add_executable(test_http tests/test_http.cpp)
+add_dependencies(test_http sylar)
+force_redefine_file_macro_for(test_http) #__FILE__
+target_link_libraries(test_http ${LIB_LIB})
+
+add_executable(test_http_parser tests/test_http_parser.cpp)
+add_dependencies(test_http_parser sylar)
+force_redefine_file_macro_for(test_http_parser) #__FILE__
+target_link_libraries(test_http_parser ${LIB_LIB})
 
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)

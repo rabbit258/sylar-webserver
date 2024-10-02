@@ -9,10 +9,15 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/fyx/sylar/sylar/address.cpp" "CMakeFiles/sylar.dir/sylar/address.cpp.o" "gcc" "CMakeFiles/sylar.dir/sylar/address.cpp.o.d"
+  "/home/fyx/sylar/sylar/bytearray.cpp" "CMakeFiles/sylar.dir/sylar/bytearray.cpp.o" "gcc" "CMakeFiles/sylar.dir/sylar/bytearray.cpp.o.d"
   "/home/fyx/sylar/sylar/config.cpp" "CMakeFiles/sylar.dir/sylar/config.cpp.o" "gcc" "CMakeFiles/sylar.dir/sylar/config.cpp.o.d"
   "/home/fyx/sylar/sylar/fd_manager.cpp" "CMakeFiles/sylar.dir/sylar/fd_manager.cpp.o" "gcc" "CMakeFiles/sylar.dir/sylar/fd_manager.cpp.o.d"
   "/home/fyx/sylar/sylar/fiber.cpp" "CMakeFiles/sylar.dir/sylar/fiber.cpp.o" "gcc" "CMakeFiles/sylar.dir/sylar/fiber.cpp.o.d"
   "/home/fyx/sylar/sylar/hook.cpp" "CMakeFiles/sylar.dir/sylar/hook.cpp.o" "gcc" "CMakeFiles/sylar.dir/sylar/hook.cpp.o.d"
+  "/home/fyx/sylar/sylar/http/http.cpp" "CMakeFiles/sylar.dir/sylar/http/http.cpp.o" "gcc" "CMakeFiles/sylar.dir/sylar/http/http.cpp.o.d"
+  "/home/fyx/sylar/sylar/http/http11_parser.rl.cpp" "CMakeFiles/sylar.dir/sylar/http/http11_parser.rl.cpp.o" "gcc" "CMakeFiles/sylar.dir/sylar/http/http11_parser.rl.cpp.o.d"
+  "/home/fyx/sylar/sylar/http/http_parser.cpp" "CMakeFiles/sylar.dir/sylar/http/http_parser.cpp.o" "gcc" "CMakeFiles/sylar.dir/sylar/http/http_parser.cpp.o.d"
+  "/home/fyx/sylar/sylar/http/httpclient_parser.rl.cpp" "CMakeFiles/sylar.dir/sylar/http/httpclient_parser.rl.cpp.o" "gcc" "CMakeFiles/sylar.dir/sylar/http/httpclient_parser.rl.cpp.o.d"
   "/home/fyx/sylar/sylar/iomanager.cpp" "CMakeFiles/sylar.dir/sylar/iomanager.cpp.o" "gcc" "CMakeFiles/sylar.dir/sylar/iomanager.cpp.o.d"
   "/home/fyx/sylar/sylar/log.cpp" "CMakeFiles/sylar.dir/sylar/log.cpp.o" "gcc" "CMakeFiles/sylar.dir/sylar/log.cpp.o.d"
   "/home/fyx/sylar/sylar/scheduler.cpp" "CMakeFiles/sylar.dir/sylar/scheduler.cpp.o" "gcc" "CMakeFiles/sylar.dir/sylar/scheduler.cpp.o.d"

@@ -9,5 +9,8 @@
 /home/fyx/sylar/CMakeFiles/test_hook.dir
 /home/fyx/sylar/CMakeFiles/test_address.dir
 /home/fyx/sylar/CMakeFiles/test_socket.dir
+/home/fyx/sylar/CMakeFiles/test_bytearray.dir
+/home/fyx/sylar/CMakeFiles/test_http.dir
+/home/fyx/sylar/CMakeFiles/test_http_parser.dir
 /home/fyx/sylar/CMakeFiles/edit_cache.dir
 /home/fyx/sylar/CMakeFiles/rebuild_cache.dir
