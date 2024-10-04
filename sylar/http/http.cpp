@@ -52,6 +52,14 @@ const char *HttpStatusToString(const HttpStatus &s)
         return "<unknown>";
     }
 }
+std::ostream &operator<<(std::ostream &os, const HttpRequest &req)
+{
+    return req.dump(os);
+}
+std::ostream &operator<<(std::ostream &os, const HttpResponse &req)
+{
+    return req.dump(os);
+}
 bool CaseInsensitiveLess::operator()(const std::string &lhs, const std::string &rhs) const
 {
     return strcasecmp(lhs.c_str(), rhs.c_str()) < 0;
@@ -205,7 +213,7 @@ std::ostream &HttpResponse::dump(std::ostream &os) const
     //
     //
     //
-    os  << " HTTP/"
+    os  << "HTTP/"
         << ((uint32_t)(m_version >> 4))
         << "."
         << ((uint32_t)(m_version & 0x0F))

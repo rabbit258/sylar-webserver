@@ -14,6 +14,7 @@ static sylar::ConfigVar<uint64_t>::ptr g_http_request_max_body_size =
 static uint64_t s_http_request_buffer_size = g_http_request_buff_size->getValue();
 static uint64_t s_http_request_max_body_size = g_http_request_max_body_size->getValue();
 
+namespace {
 struct _RequestSizeIniter {
     _RequestSizeIniter() {
         s_http_request_buffer_size = g_http_request_buff_size->getValue();
@@ -33,7 +34,7 @@ struct _RequestSizeIniter {
 };
 
 static _RequestSizeIniter _init;
-
+}
 void on_request_method(void *data,const char *at,size_t len){
     HttpRequestParser * parser = static_cast<HttpRequestParser*>(data);
     HttpMethod m = CharsToHttpMethod(at);
@@ -109,6 +110,7 @@ HttpRequestParser::HttpRequestParser()
 
 size_t HttpRequestParser::execute(char *data, size_t len)
 {
+    SYLAR_LOG_DEBUG(g_logger) << std::string(data,len);
     size_t offset = http_parser_execute(&m_parser,data,len,0);
     if(offset == (size_t)-1) {
         SYLAR_LOG_WARN(g_logger) << "invalid request: " <<std::string(data,len);
@@ -129,6 +131,16 @@ int HttpRequestParser::hasError()
 uint64_t HttpRequestParser::getContentLenth()
 {
     return m_data->getHeaderAs<uint64_t>("content-length",0);
+}
+
+uint64_t HttpRequestParser::GetHttpRequestBufferSize()
+{
+    return s_http_request_buffer_size;
+}
+
+uint64_t HttpRequestParser::GetHttpRequestMaxBodySize()
+{
+    return s_http_request_max_body_size;
 }
 
 void on_response_reson(void *data,const char *at,size_t len){

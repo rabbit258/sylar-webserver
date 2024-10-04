@@ -208,7 +208,7 @@ int Address::getFamily() const
 {
     return getAddr()->sa_family;
 }
-std::string Address::toString()
+std::string Address::toString() const
 {
     std::stringstream ss;
     insert(ss);
@@ -516,7 +516,7 @@ std::ostream &UnixAddress::insert(std::ostream &os) const
         return os << "\\0" << std::string(m_addr.sun_path+1,
                 m_length - offsetof(sockaddr_un,sun_path)-1);
     }
-    return os;
+    return os << m_addr.sun_path;
 }
 UnkownAddress::UnkownAddress(int family)
 {
@@ -543,6 +543,11 @@ std::ostream &UnkownAddress::insert(std::ostream &os) const
 {
     os << "[UnknownAddress family=" << m_addr.sa_family <<"]";
     return os;
+}
+
+std::ostream &operator<<(std::ostream &os, const Address &addr)
+{
+    return addr.insert(os);
 }
 
 }

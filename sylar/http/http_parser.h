@@ -23,6 +23,11 @@ public:
     void setError(int v) {m_error = v;}
 
     uint64_t getContentLenth();
+
+    static uint64_t GetHttpRequestBufferSize();
+    static uint64_t GetHttpRequestMaxBodySize();
+    // static uint64_t s_http_request_buffer_size = 0;
+    // static uint64_t s_http_request_max_body_size = 0;
 private:
     http_parser m_parser;
     HttpRequest::ptr m_data;

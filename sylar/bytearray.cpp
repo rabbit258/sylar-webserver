@@ -318,7 +318,7 @@ std::string ByteArray::readStringVint()
 void ByteArray::clear()
 {
     m_position = m_size = 0;
-    m_capacity = m_baseSize =0;
+    m_capacity = m_baseSize;
     Node * tmp = m_root->next;
     while(tmp){
         m_cur = tmp;

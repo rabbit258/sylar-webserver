@@ -22,11 +22,17 @@ set(LIB_SRC
     sylar/fd_manager.cpp
     sylar/address.cpp
     sylar/socket.cpp
+    sylar/socket_stream.cpp
     sylar/bytearray.cpp
+    sylar/tcp_server.cpp
+    sylar/stream.cpp
     sylar/http/http.cpp
     sylar/http/http_parser.cpp
     sylar/http/http11_parser.rl.cpp
     sylar/http/httpclient_parser.rl.cpp
+    sylar/http/http_session.cpp
+    sylar/http/http_server.cpp
+    sylar/http/http_servlet.cpp
     )
 add_library(sylar SHARED ${LIB_SRC})
 force_redefine_file_macro_for(sylar) #__FILE__
@@ -103,6 +109,21 @@ add_executable(test_http_parser tests/test_http_parser.cpp)
 add_dependencies(test_http_parser sylar)
 force_redefine_file_macro_for(test_http_parser) #__FILE__
 target_link_libraries(test_http_parser ${LIB_LIB})
+
+add_executable(test_tcp_server tests/test_tcp_server.cpp)
+add_dependencies(test_tcp_server sylar)
+force_redefine_file_macro_for(test_tcp_server) #__FILE__
+target_link_libraries(test_tcp_server ${LIB_LIB})
+
+add_executable(echo_server examples/echo_server.cpp)
+add_dependencies(echo_server sylar)
+force_redefine_file_macro_for(echo_server) #__FILE__
+target_link_libraries(echo_server ${LIB_LIB})
+
+add_executable(test_http_server tests/test_http_server.cpp)
+add_dependencies(test_http_server sylar)
+force_redefine_file_macro_for(test_http_server) #__FILE__
+target_link_libraries(test_http_server ${LIB_LIB})
 
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)

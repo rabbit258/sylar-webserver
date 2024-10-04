@@ -106,7 +106,7 @@ bool Socket::setOption(int level, int option, const void *result, size_t len)
 {
     int rt = setsockopt(m_sock,level,option,result,(socklen_t)len);
     if(rt){
-        SYLAR_LOG_DEBUG(g_logger) << "getOption errno=" << m_sock
+        SYLAR_LOG_DEBUG(g_logger) << "setOption errno=" << m_sock
             << " level=" << level <<" option=" << option
             << " errno=" << errno <<" errst="  << strerror(errno);
         return false;
@@ -434,5 +434,9 @@ void Socket::newSock()
             << ", " << m_type << ", " << m_protocol << ") errno="
             << errno << " errstr=" << strerror(errno);
     }
+}
+std::ostream &operator<<(std::ostream &os, const Socket &addr)
+{
+    return addr.dump(os);
 }
 }
