@@ -24,6 +24,8 @@ public:
 
     uint64_t getContentLenth();
 
+    const http_parser& getParser() const {return m_parser;}
+
     static uint64_t GetHttpRequestBufferSize();
     static uint64_t GetHttpRequestMaxBodySize();
     // static uint64_t s_http_request_buffer_size = 0;
@@ -42,12 +44,17 @@ public:
     typedef std::shared_ptr<HttpResponseParser> ptr;
     HttpResponseParser();
 
-    size_t execute(char * data,size_t len);
+    size_t execute(char * data,size_t len, bool chunck = false);
     int isFinished() ;
     int hasError() ; 
     void setError(int v) {m_error = v;}
     HttpResponse::ptr getData() const {return m_data;}
     uint64_t getContentLenth();
+
+    const httpclient_parser& getParser() const {return m_parser;}
+
+    static uint64_t GetHttpResponseBufferSize();
+    static uint64_t GetHttpResponseMaxBodySize();
 private:
     httpclient_parser m_parser;
     HttpResponse::ptr m_data;

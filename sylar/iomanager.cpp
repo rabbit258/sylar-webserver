@@ -86,7 +86,7 @@ void IOmanager::contextResize(size_t size)
 }
 int IOmanager::addEvent(int fd, Event event, std::function<void()> cb)
 {
-    // SYLAR_LOG_INFO(g_logger) << "addevent : fd = "<< fd << " event = "<< (int)event;
+
     FdContext* fd_ctx=nullptr;
     RWMutexType::ReadLock lock(m_mutex);
     if((int)m_fdContexts.size() > fd){
@@ -97,7 +97,7 @@ int IOmanager::addEvent(int fd, Event event, std::function<void()> cb)
         contextResize(fd * 1.5);
         fd_ctx = m_fdContexts[fd];
     }
-
+    SYLAR_LOG_INFO(g_logger) << "addevent fd = " << fd << " event = " << (int)fd_ctx->m_events;
     FdContext::MutexType::Lock lock2(fd_ctx->mutex);
     if(fd_ctx->m_events & event){
         SYLAR_LOG_ERROR(g_logger) << "addEvent aasert fd = "<<fd
@@ -314,7 +314,7 @@ void IOmanager::idel()
             FdContext * fd_ctx = (FdContext *)event.data.ptr;
             FdContext::MutexType::Lock lock(fd_ctx->mutex);
             if(event.events & (EPOLLERR | EPOLLHUP)){
-                event.events |= EPOLLIN | EPOLLOUT;
+                event.events |= (EPOLLIN | EPOLLOUT) & fd_ctx->m_events;
             }
             int real_events = NONE;
             if(event.events & EPOLLIN){

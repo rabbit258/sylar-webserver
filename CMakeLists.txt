@@ -31,9 +31,15 @@ set(LIB_SRC
     sylar/http/http11_parser.rl.cpp
     sylar/http/httpclient_parser.rl.cpp
     sylar/http/http_session.cpp
+    sylar/http/http_connection.cpp
     sylar/http/http_server.cpp
     sylar/http/http_servlet.cpp
     )
+
+ragelmaker(sylar/http/http11_parser.rl LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/sylar/http)
+ragelmaker(sylar/http/httpclient_parser.rl LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/sylar/http)
+ragelmaker(sylar/uri.rl LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/sylar)
+
 add_library(sylar SHARED ${LIB_SRC})
 force_redefine_file_macro_for(sylar) #__FILE__
 
@@ -124,6 +130,16 @@ add_executable(test_http_server tests/test_http_server.cpp)
 add_dependencies(test_http_server sylar)
 force_redefine_file_macro_for(test_http_server) #__FILE__
 target_link_libraries(test_http_server ${LIB_LIB})
+
+add_executable(test_http_connection tests/test_http_connection.cpp)
+add_dependencies(test_http_connection sylar)
+force_redefine_file_macro_for(test_http_connection) #__FILE__
+target_link_libraries(test_http_connection ${LIB_LIB})
+
+add_executable(test_uri tests/test_uri.cpp)
+add_dependencies(test_uri sylar)
+force_redefine_file_macro_for(test_uri) #__FILE__
+target_link_libraries(test_uri ${LIB_LIB})
 
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)

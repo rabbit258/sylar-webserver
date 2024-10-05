@@ -39,7 +39,7 @@ private:
     struct FdContext {
         typedef Mutex MutexType;
         struct EventContext{
-            Scheduler * scheduler ;     //事件执行的scheduler
+            Scheduler * scheduler =nullptr ;     //事件执行的scheduler
             Fiber::ptr fiber;           //事件协程
             std::function<void()> cb;   //事件的回调函数
         };

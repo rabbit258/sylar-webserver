@@ -6,7 +6,7 @@ static sylar::Logger::ptr g_logger = SYLAR_LOG_ROOT();
 void run()
 {
     sylar::http::HttpServer::ptr server(new sylar::http::HttpServer);
-    sylar::Address::ptr addr = sylar::Address::LookupAnyIPaddress("0.0.0.0:8020");
+    sylar::Address::ptr addr = sylar::Address::LookupAnyIPaddress("0.0.0.0:80");
     while(!server->bind(addr)){
         sleep(2);
     }
@@ -21,7 +21,16 @@ void run()
     sd->addGlobServlet("/sylar/*",[](sylar::http::HttpRequest::ptr req 
                                 ,sylar::http::HttpResponse::ptr rsp
                                 ,sylar::http::HttpSession::ptr session){
-                rsp->setBody("Glob:\r\n"+ req->toString());
+                rsp->setHeader("Content-Type","text/plain");
+                rsp->setHeader("Transfer-Encoding","chunked");
+                rsp->setBody(
+                    "7\r\n"
+                    "Mozilla\r\n"
+                    "11\r\n"
+                    "Developer Network\r\n"
+                    "0\r\n"
+                    "\r\n"
+                );
                 return 0;
         });
     

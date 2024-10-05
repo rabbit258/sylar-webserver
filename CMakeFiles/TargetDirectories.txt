@@ -15,5 +15,7 @@
 /home/fyx/sylar/CMakeFiles/test_tcp_server.dir
 /home/fyx/sylar/CMakeFiles/echo_server.dir
 /home/fyx/sylar/CMakeFiles/test_http_server.dir
+/home/fyx/sylar/CMakeFiles/test_http_connection.dir
+/home/fyx/sylar/CMakeFiles/test_uri.dir
 /home/fyx/sylar/CMakeFiles/edit_cache.dir
 /home/fyx/sylar/CMakeFiles/rebuild_cache.dir

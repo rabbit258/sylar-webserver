@@ -44,13 +44,17 @@ CXX_FLAGS =  -rdynamic -O3 -g -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unus
 
 # Custom defines: CMakeFiles/sylar.dir/sylar/http/http_parser.cpp.o_DEFINES = __FILE__="sylar/http/http_parser.cpp"
 
-# Custom defines: CMakeFiles/sylar.dir/sylar/http/http11_parser.rl.cpp.o_DEFINES = __FILE__="sylar/http/http11_parser.rl.cpp"
+# Custom defines: CMakeFiles/sylar.dir/sylar/http/http11_parser.rl.cpp.o_DEFINES = __FILE__="sylar/http/http11_parser.rl.cpp";__FILE__="sylar/http/http11_parser.rl.cpp"
 
-# Custom defines: CMakeFiles/sylar.dir/sylar/http/httpclient_parser.rl.cpp.o_DEFINES = __FILE__="sylar/http/httpclient_parser.rl.cpp"
+# Custom defines: CMakeFiles/sylar.dir/sylar/http/httpclient_parser.rl.cpp.o_DEFINES = __FILE__="sylar/http/httpclient_parser.rl.cpp";__FILE__="sylar/http/httpclient_parser.rl.cpp"
 
 # Custom defines: CMakeFiles/sylar.dir/sylar/http/http_session.cpp.o_DEFINES = __FILE__="sylar/http/http_session.cpp"
+
+# Custom defines: CMakeFiles/sylar.dir/sylar/http/http_connection.cpp.o_DEFINES = __FILE__="sylar/http/http_connection.cpp"
 
 # Custom defines: CMakeFiles/sylar.dir/sylar/http/http_server.cpp.o_DEFINES = __FILE__="sylar/http/http_server.cpp"
 
 # Custom defines: CMakeFiles/sylar.dir/sylar/http/http_servlet.cpp.o_DEFINES = __FILE__="sylar/http/http_servlet.cpp"
+
+# Custom defines: CMakeFiles/sylar.dir/sylar/uri.rl.cpp.o_DEFINES = __FILE__="sylar/uri.rl.cpp"
 

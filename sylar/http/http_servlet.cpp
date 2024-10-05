@@ -19,6 +19,7 @@ ServletDispatch::ServletDispatch()
 }
 int32_t ServletDispatch::handle(sylar::http::HttpRequest::ptr request, sylar::http::HttpResponse::ptr response, sylar::http::HttpSession::ptr session)
 {
+    std::cout << request->getPath() <<std::endl;
     auto slt = getMatchedServlet(request->getPath());
     if(slt){
         slt->handle(request, response, session);
@@ -69,13 +70,13 @@ void ServletDispatch::delGlobServlet(const std::string &uri)
 }
 Servlet::ptr ServletDispatch::getServlet(const std::string &uri)
 {
-    RWMutexType::WriteLock lock(m_mutex);
+    RWMutexType::ReadLock lock(m_mutex);
     auto it = m_datas.find(uri);
     return it == m_datas.end() ? nullptr : it->second;
 }
 Servlet::ptr ServletDispatch::getGlobServlet(const std::string &uri)
 {
-    RWMutexType::WriteLock lock(m_mutex);
+    RWMutexType::ReadLock lock(m_mutex);
     for(auto it = m_globs.begin();
             it != m_globs.end(); ++it){
         if(it->first == uri){
@@ -86,7 +87,7 @@ Servlet::ptr ServletDispatch::getGlobServlet(const std::string &uri)
 }
 Servlet::ptr ServletDispatch::getMatchedServlet(const std::string &uri)
 {
-    RWMutexType::WriteLock lock(m_mutex);
+    RWMutexType::ReadLock lock(m_mutex);
     auto mit = m_datas.find(uri);
     if(mit != m_datas.end()){
         return mit->second;

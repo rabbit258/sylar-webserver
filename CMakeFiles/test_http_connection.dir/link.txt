@@ -1,0 +1,1 @@
+/usr/bin/c++  -rdynamic -O3 -g -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -rdynamic CMakeFiles/test_http_connection.dir/tests/test_http_connection.cpp.o -o bin/test_http_connection  -Wl,-rpath,/home/fyx/sylar/lib lib/libsylar.so -lpthread thirdpart/yaml/libyaml-cpp.a 

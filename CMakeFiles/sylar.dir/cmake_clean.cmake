@@ -15,6 +15,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/sylar.dir/sylar/http/http.cpp.o.d"
   "CMakeFiles/sylar.dir/sylar/http/http11_parser.rl.cpp.o"
   "CMakeFiles/sylar.dir/sylar/http/http11_parser.rl.cpp.o.d"
+  "CMakeFiles/sylar.dir/sylar/http/http_connection.cpp.o"
+  "CMakeFiles/sylar.dir/sylar/http/http_connection.cpp.o.d"
   "CMakeFiles/sylar.dir/sylar/http/http_parser.cpp.o"
   "CMakeFiles/sylar.dir/sylar/http/http_parser.cpp.o.d"
   "CMakeFiles/sylar.dir/sylar/http/http_server.cpp.o"
@@ -43,10 +45,15 @@ file(REMOVE_RECURSE
   "CMakeFiles/sylar.dir/sylar/thread.cpp.o.d"
   "CMakeFiles/sylar.dir/sylar/timer.cpp.o"
   "CMakeFiles/sylar.dir/sylar/timer.cpp.o.d"
+  "CMakeFiles/sylar.dir/sylar/uri.rl.cpp.o"
+  "CMakeFiles/sylar.dir/sylar/uri.rl.cpp.o.d"
   "CMakeFiles/sylar.dir/sylar/util.cpp.o"
   "CMakeFiles/sylar.dir/sylar/util.cpp.o.d"
   "lib/libsylar.pdb"
   "lib/libsylar.so"
+  "sylar/http/http11_parser.rl.cpp"
+  "sylar/http/httpclient_parser.rl.cpp"
+  "sylar/uri.rl.cpp"
 )
 
 # Per-language clean rules from dependency scanning.
