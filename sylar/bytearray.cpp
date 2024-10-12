@@ -5,6 +5,7 @@
 #include <fstream>
 #include <sstream>
 #include <iomanip>
+#include <cmath>
 
 
 namespace sylar{
@@ -104,6 +105,7 @@ void ByteArray::writeFuint64(uint64_t value)
     write(&value, sizeof(value));
 }
 
+//Zigzag
 static uint32_t EncodeZigzag32(const int32_t & v){
     if(v < 0){
         return ((uint32_t)(-v))*2-1;
@@ -118,6 +120,9 @@ static uint64_t EncodeZigzag64(const int64_t & v){
         return v * 2;
     }
 }
+//负数有奇数位，相当于异或-1
+//-1补码形式为全1，相当于取正数的反码
+//加1已经和encoding的过程抵消掉
 static uint32_t DecodeZigzag32(const int32_t & v){
     return (v >> 1) ^ -(v & 1);
 }
@@ -133,6 +138,7 @@ void ByteArray::writeUint32(uint32_t value)
 {
     uint8_t tmp[5];
     uint8_t i = 0;
+    //zigzag加密
     while(value >= 0x80){
         tmp[i++] = (value & 0x7F) | 0x80;
         value >>= 7;
@@ -575,7 +581,7 @@ uint64_t ByteArray::getReadBuffers(std::vector<iovec> &buffers, uint64_t len, ui
 
 
     while(len > 0){
-        if(ncap >= size){
+        if(ncap >= len){
             iov.iov_base = cur->ptr+ + npos;
             iov.iov_len = len;
             len = 0;
@@ -632,7 +638,7 @@ void ByteArray::addCapacity(size_t size)
     }
 
     size = size - old_cap;
-    size_t count = (size / m_baseSize) + ((size %m_baseSize > old_cap)?1:0);
+    size_t count = ceil(1.0 * size / m_baseSize);
     Node * tmp = m_root;
     while(tmp->next){
         tmp= tmp->next;

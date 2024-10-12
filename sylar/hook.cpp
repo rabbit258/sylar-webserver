@@ -8,7 +8,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-sylar::Logger::ptr g_logger = SYLAR_LOG_NAME("system");
+static sylar::Logger::ptr g_logger = SYLAR_LOG_NAME("system");
 
 namespace sylar{
 
@@ -38,7 +38,7 @@ static thread_local bool t_hook_enable = false;
     XX(fcntl) \
     XX(ioctl) \
     XX(getsockopt) \
-    XX(setsockopt)
+    XX(setsockopt) \
 
 void hook_init(){
     static bool is_inited = false;
@@ -84,11 +84,13 @@ template<typename OriginFun,typename ... Args>
 static ssize_t do_io(int fd,OriginFun fun,const char * hook_fun_name,
         uint32_t event ,int timeout_so ,Args&&... args){
     if(!sylar::t_hook_enable){
+        //完美转发
         return fun(fd,std::forward<Args>(args)...);
     }
     // SYLAR_LOG_INFO(g_logger) << "do_io->"<<hook_fun_name;
     sylar::FdCtx::ptr ctx = sylar::FdMgr::GetInstance()->get(fd);
     if(!ctx){
+        //完美转发
         return fun(fd,std::forward<Args>(args)...);
     }
 
@@ -109,12 +111,14 @@ retry:
     while(n == -1 && errno ==EINTR){
         n = fun(fd,std::forward<Args>(args)...);
     }
+    //无数据可以读写，调用失败
     if(n == -1 && errno == EAGAIN){
         sylar::IOmanager * iom = sylar::IOmanager::GetThis();
         sylar::Timer::ptr timer;
         std::weak_ptr<timer_info> winfo(tinfo);
 
         if(to != (uint64_t)-1){
+            //离开了do_io,tinfo会析构掉，winfo此时无法得到对象，则不会执行函数
             timer = iom->addConditionTimer(to ,[winfo,fd,iom,event](){
                 auto t= winfo.lock();
                 if(!t || t->cancelled){
@@ -122,12 +126,13 @@ retry:
                 }
 
                 t->cancelled = ETIMEDOUT;
+                //会回到hold
                 iom->cancelEvent(fd,(sylar::IOmanager::Event)(event));
             },winfo);
         }
         int c= 0;
         uint64_t now =0;
-
+        //没有挂回调函数，会回到hold
         int rt = iom->addEvent(fd,(sylar::IOmanager::Event)(event));
         if(rt){
             SYLAR_LOG_ERROR(g_logger) << hook_fun_name << " addEvent()"
@@ -171,6 +176,7 @@ unsigned int sleep(unsigned int seconds){
     iom->addTimer(seconds * 1000,std::bind((void(sylar::Scheduler::*)
             (sylar::Fiber::ptr,int thread))&sylar::IOmanager::schedule
             ,iom,fiber,-1));
+    //等待timer将自己唤醒
     sylar::Fiber::YieldToHold();
     return 0;
 }   
@@ -185,6 +191,7 @@ int usleep(useconds_t usec){
     iom->addTimer(usec / 1000,std::bind((void(sylar::Scheduler::*)
             (sylar::Fiber::ptr,int thread))&sylar::IOmanager::schedule
             ,iom,fiber,-1));
+    //等待timer将自己唤醒
     sylar::Fiber::YieldToHold();
     return 0;
 }   
@@ -200,6 +207,7 @@ int nanosleep(const struct timespec * req,struct timespec *rem){
         iom->addTimer(timeoout_ms / 1000,[iom,fiber](){
         iom->schedule(fiber);
     });
+    //等待timer将自己唤醒
     sylar::Fiber::YieldToHold();
     return 0;
 }
@@ -370,10 +378,11 @@ int fcntl(int fd, int cmd, ... /* arg */ ){
                     return fcntl_f(fd,cmd,arg);
                 }
                 ctx->setUserNonblock(arg & O_NONBLOCK);
+                //hook
                 if(ctx->getSysNonblock()){
                     arg |= O_NONBLOCK;
                 } else {
-                    arg &= O_NONBLOCK;
+                    arg &= ~O_NONBLOCK;
                 }
                 return fcntl_f(fd,cmd,arg);
             }
@@ -387,9 +396,9 @@ int fcntl(int fd, int cmd, ... /* arg */ ){
                     return arg;
                 }
                 if(ctx->getSysNonblock()){
-                    return arg |= O_NONBLOCK;
+                    return arg | O_NONBLOCK;
                 } else {
-                    return arg &= O_NONBLOCK;
+                    return arg & ~O_NONBLOCK;
                 }
             }
         case F_DUPFD:

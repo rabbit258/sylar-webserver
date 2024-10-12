@@ -357,6 +357,7 @@ Address::ptr Socket::getLocalAddress()
             break;
     }
     socklen_t addrlen = result->getAddrLen();
+    //获取本地协议地址
     if(getsockname(m_sock,result->getAddr(),&addrlen)){
         SYLAR_LOG_ERROR(g_logger) << "getsockname error sock=" << m_sock
             << " errno" << errno << " errstr=" << strerror(errno);
@@ -415,12 +416,13 @@ bool Socket::cancelAll()
 {
     return IOmanager::GetThis()->cancelALL(m_sock);
 }
-void Socket::
-initSock()
+void Socket::initSock()
 {
     int val = 1;
+    //可bind到一个已经bind过的地址
     setOption(SOL_SOCKET, SO_REUSEADDR,val);
     if(m_type == SOCK_STREAM){
+        //降低网络小包数量
         setOption(IPPROTO_TCP, TCP_NODELAY,val);
     }
 }

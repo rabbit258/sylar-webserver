@@ -2,7 +2,9 @@
 #include "log.h"
 
 namespace sylar{
+//指向当前线程
 static thread_local Thread * t_thread = nullptr;
+//线程名
 static thread_local std::string t_thread_name = "UNKONW";
 
 static sylar::Logger::ptr g_logger = SYLAR_LOG_NAME("system");
@@ -34,6 +36,7 @@ Thread::Thread(std::function<void()> cb, const std::string & name):m_cb(cb),m_na
         << " name= "<<name;
         throw std::logic_error("phread_creater error");
     }
+    //等待Thread::run初始化
     m_semaphore.wait();
 }
 Thread::~Thread()
@@ -64,6 +67,8 @@ void *Thread::run(void *arg)
 
     std::function<void()> cb;
     cb.swap(thread->m_cb);
+    //防止引用计数导致的内存不释放问题
+    //将cb的执行丢给临时变量
     thread->m_semaphore.notify();
     cb();
     return 0;

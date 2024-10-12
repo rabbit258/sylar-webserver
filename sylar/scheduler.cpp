@@ -9,14 +9,18 @@ static Logger::ptr g_logger = SYLAR_LOG_NAME("system");
 static thread_local Scheduler* t_sheduler = nullptr;//线程指向调度器指针
 static thread_local Fiber* t_fiber = nullptr;//调度器用于运行run的协程
 
+
 Scheduler::Scheduler(size_t threads, bool use_caller, const std::string &name)
 :m_name(name)
 {
     SYLAR_ASSERT(threads>0);
     if(use_caller){
+        //当前fiber变为主fiber
         sylar::Fiber::GetThis();
+        //当前线程加入工作，减一生成的线程数
         --threads;
 
+        //使用use_caller的调度器应该只有一个
         SYLAR_ASSERT(GetThis() == nullptr);
         t_sheduler = this;
 
@@ -57,6 +61,7 @@ void Scheduler::start()
 
     SYLAR_ASSERT(m_threads.empty());
 
+    //生成线程去run
     m_threads.resize(m_threadCount);
     for(size_t i= 0;i<m_threadCount;++i){
         m_threads[i].reset(new Thread(std::bind(&Scheduler::run,this),
@@ -72,11 +77,13 @@ void Scheduler::start()
 }
 void Scheduler::stop()
 {
+    //开启自动停止
     m_autoStop = true;
     if(m_rootFiber
             && m_threadCount == 0
             && (m_rootFiber->getState() == Fiber::TERM
                 || m_rootFiber->getState() == Fiber::INIT)){
+        //已经停止了
         SYLAR_LOG_INFO(g_logger) <<this<<" stopped";
         m_stopping = true;
 
@@ -93,6 +100,7 @@ void Scheduler::stop()
     }
 
     m_stopping = true;
+    //全部唤醒
     for(size_t i = 0;i<m_threadCount;++i){
         tickle();
     }
@@ -112,6 +120,7 @@ void Scheduler::stop()
         //     }
         //     m_rootFiber->call();
         // }
+        //任务没做完
         if(!stopping()){
             m_rootFiber->call();
         }
@@ -140,9 +149,10 @@ void Scheduler::run()
 {
     set_hook_enable(true);
     SYLAR_LOG_DEBUG(g_logger) <<"run";
-    // Fiber::GetThis();
+    //Fiber::GetThis();
+    //给所有线程都设置好调度器
     setThis();
-
+    //给非主协程设置指针
     if(sylar::GetThreadId() != m_rootThread){
         t_fiber = Fiber::GetThis().get();
     }
@@ -159,6 +169,8 @@ void Scheduler::run()
             MutexType::Lock lock(m_mutex);
             auto it = m_fibers.begin();
             while(it!=m_fibers.end()){
+                //找到有指定线程的任务
+                //这里显然是能优化的
                 if(it->thread != -1&& it->thread != sylar::GetThreadId()){
                     ++it;
                     tickle_me = true;
@@ -185,7 +197,7 @@ void Scheduler::run()
 
         if(ft.fiber && (ft.fiber->getState() !=Fiber::TERM
                         && ft.fiber->getState() !=Fiber::EXCEPT)){
-
+            //HOLD or READY
             ft.fiber->swapIn();
             --m_activeThreadCount;
             if(ft.fiber->getState() == Fiber::READY){

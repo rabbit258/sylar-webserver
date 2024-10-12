@@ -19,7 +19,7 @@ ServletDispatch::ServletDispatch()
 }
 int32_t ServletDispatch::handle(sylar::http::HttpRequest::ptr request, sylar::http::HttpResponse::ptr response, sylar::http::HttpSession::ptr session)
 {
-    std::cout << request->getPath() <<std::endl;
+    // std::cout << request->getPath() <<std::endl;
     auto slt = getMatchedServlet(request->getPath());
     if(slt){
         slt->handle(request, response, session);

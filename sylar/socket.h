@@ -21,7 +21,9 @@ public:
         UNIX = AF_UNIX
     };
 
+    //用指定地址创建一个TCPsocket
     static Socket::ptr CreateTCPSocket(sylar::Address::ptr address);
+    //用指定地址创建一个UPDsocket
     static Socket::ptr CreateUDPSocket(sylar::Address::ptr address);
 
     static Socket::ptr CreateTCPSocket();
@@ -74,7 +76,13 @@ public:
     int recvFrom(void * buffer, size_t length, Address::ptr from,int flags = 0);
     int recvFrom(iovec * buffer, size_t length, Address::ptr from,int flags = 0);
 
+    /**
+     * @brief 获取远端地址
+     */
     Address::ptr getRemoteAddress();
+        /**
+     * @brief 获取本地地址
+     */
     Address::ptr getLocalAddress();
 
     int getFamily() const {return m_family;}

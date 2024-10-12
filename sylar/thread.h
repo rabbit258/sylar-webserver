@@ -11,6 +11,7 @@
 #include"noncopyable.h"
 namespace sylar{
 
+//POSIX无名信号量
 class Semaphore : Noncopyable{
 public:
     Semaphore(uint32_t count = 0);
@@ -22,6 +23,7 @@ private:
     sem_t m_semaphore;
 };
 
+//互斥锁
 template<class T>
 struct ScopeLockImpl{
 public:
@@ -53,6 +55,7 @@ private:
     bool m_locked;
 };
 
+//互斥锁
 class Mutex : Noncopyable{
 public:
     typedef ScopeLockImpl<Mutex> Lock;
@@ -187,6 +190,7 @@ public:
     void unlock(){}
 };
 
+//自旋锁
 class Spinlock : Noncopyable{
 public:
     typedef ScopeLockImpl<Spinlock> Lock;
@@ -209,6 +213,7 @@ private:
     pthread_spinlock_t m_mutex;
 };
 
+//自旋cas
 class CASlock : Noncopyable{
 public:
     typedef ScopeLockImpl<CASlock> Lock;
@@ -230,6 +235,7 @@ private:
     volatile std::atomic_flag m_mutex;
 };
 
+//线程
 class Thread{
 public:
     typedef std::shared_ptr<Thread> ptr;

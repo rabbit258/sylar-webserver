@@ -1,6 +1,7 @@
 #include "stream.h"
 
 namespace sylar{
+    
 int Stream::readFixSize(void *buffers, size_t length)
 {
     size_t offset = 0;

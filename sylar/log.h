@@ -58,7 +58,10 @@ public:
         FATAL
     };
 
+    //将level类型转为对应的字符输出
     static const char * Tostring(LogLevel::Level level);
+
+    //将给定的字符转为level类
     static LogLevel::Level FromString(const std::string & str);
 };
 
@@ -66,21 +69,43 @@ public:
 class LogEvent {
 public:
     typedef std::shared_ptr<LogEvent> ptr;
+
+
+    /// @brief 构造函数
+    /// @param logger 日志器
+    /// @param level 日志等级
+    /// @param file 当前文件名
+    /// @param line 当前行数
+    /// @param elapse 程序启动依赖的耗时
+    /// @param threadid 当前线程id
+    /// @param fiberId 当前协程id
+    /// @param time 当前时间
+    /// @param thread_name 线程名
     LogEvent(std::shared_ptr<Logger> logger,LogLevel::Level level,const char * file , int32_t line , uint32_t elapse,
     uint32_t threadid,uint32_t fiberId,uint64_t time,const std::string & thread_name);
 
+    //返回文件名
     const char * getFile() const {return m_file;}
+    //返回行号
     int32_t getLine() const {return m_line;}
+    //返回运行时间
     uint32_t getElapse() const {return m_elapse;}
+    //返回线程id
     uint32_t getThreadId() const {return m_threadId;}
+    //返回协程id
     uint32_t getFiberId() const {return m_fiberId;}
+    //返回当前时间
     uint64_t getTime() const {return m_time;}
+    //返回线程名
     const std::string& getThreadName()const {return m_threadName;}
+    //返回日志内容
     std::string getContent() const {return m_ss.str();}
     std::stringstream & getSS() {return m_ss;}
     std::shared_ptr<Logger> getLogger() {return m_logger;}
+    //返回日志等级
     LogLevel::Level getLevel() {return m_level;}
 
+    //按照fmt格式写日志到m_ss里
     void format(const char * fmt,...);
     void format(const char * fmt,va_list al);
 private:
@@ -110,9 +135,16 @@ private:
 class LogFormatter {
 public:
     typedef std::shared_ptr<LogFormatter> ptr;
+
+    
+    /// @brief 利用pattern解析出m_items,做到按指定格式输出字符的效果
+    /// @param pattern 用于解析的字符串
     LogFormatter(const std::string pattern);
 
 
+
+    //调用自身m_items中所有FormatItem的format事件
+    //返回结果构成的字符串
     std::string format(std::shared_ptr<Logger>logger, LogLevel::Level level,LogEvent::ptr event);
 // private:
     class FormatItem{
@@ -123,6 +155,7 @@ public:
             virtual void format(std::ostream& os,std::shared_ptr<Logger>logger,LogLevel::Level level,LogEvent::ptr event) = 0;
     };
 
+    //真正的解析函数
     void init();
 
     bool isError() const {return m_error;}
@@ -161,15 +194,20 @@ friend class LoggerManager;
 public:
     typedef std::shared_ptr<Logger> ptr;
     typedef Spinlock MutexType;
+
     Logger(const std::string & name = "root");
+    //调用管理的LoggerAppender的每个format事件，level可指定
     void log(LogLevel::Level level,LogEvent::ptr event);
-
+    //debug级别的log调用
     void debug(LogEvent::ptr event);
+    //info级别的log调用
     void info(LogEvent::ptr event);
+    //warn级别的log调用
     void warn(LogEvent::ptr event);
+    //fatal级别的log调用
     void fatal(LogEvent::ptr event);
+    //error级别的log调用
     void error(LogEvent::ptr event);
-
     void addAppender(LogAppender::ptr appender);
     void delAppender(LogAppender::ptr appender);
     void clearAppenders();
@@ -188,8 +226,8 @@ private:
     LogLevel::Level m_level; //日志级别
     MutexType m_mutex;
     std::list<LogAppender::ptr> m_appender;        //Appender集合
-    LogFormatter::ptr m_formatter;
-    Logger::ptr m_root;
+    LogFormatter::ptr m_formatter; //自带的formatter ,方便调试
+    Logger::ptr m_root;//默认的日志器
 };
 
 //输出到控制台的Appender
@@ -215,21 +253,23 @@ private:
     std::ofstream m_filestream;
 };
 
+//全局logger管理器
 class LoggerManager{
 public:
     typedef Spinlock MutexType;
     LoggerManager();
     Logger::ptr getLogger(const std::string & name);
-
+    //do noting
     void init();
     Logger::ptr getRoot()const {return m_root;}
     std::string toYamlString();
 private:
     std::map<std::string,Logger::ptr> m_logger;
-    Logger::ptr m_root;
+    Logger::ptr m_root; //指向当前正在使用的日志器
     MutexType m_mutex;
 };
 
+//静态单列模式
 typedef Singleton<LoggerManager> LoggerMgr;
 
 }

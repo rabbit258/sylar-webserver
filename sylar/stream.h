@@ -10,12 +10,19 @@ public:
     typedef std::shared_ptr<Stream> ptr;
     virtual ~Stream() {}
 
+    //read
     virtual int read(void * buff,size_t length) = 0;
     virtual int read(ByteArray::ptr ba,size_t length) = 0;
+
+
     virtual int readFixSize(void * buffers,size_t length);
     virtual int readFixSize(ByteArray::ptr ba,size_t length);
+
+    //write
     virtual int write(const void * buff,size_t length) = 0;
     virtual int write(ByteArray::ptr ba,size_t length) = 0;
+
+
     virtual int writeFixSize(const void * buffers,size_t length);
     virtual int writeFixSize(ByteArray::ptr ba,size_t length);
     virtual void close() = 0;

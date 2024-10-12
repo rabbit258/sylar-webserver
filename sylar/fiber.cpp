@@ -11,7 +11,9 @@ static Logger::ptr g_logger = SYLAR_LOG_NAME("system");
 static std::atomic<uint64_t> s_fiber_id {0};
 static std::atomic<uint64_t> s_fiber_count {0};
 
+//当前协程
 static thread_local Fiber * t_fiber = nullptr;
+//创建的第一个协程，也就是调度器协程
 static thread_local Fiber::ptr t_threadFiber = nullptr;
 
 static ConfigVar<uint32_t>::ptr g_fiber_stack_size = 
@@ -48,9 +50,11 @@ Fiber::~Fiber()
     SYLAR_LOG_DEBUG(g_logger) << "fiber::~fiber() : "<< m_id;
     --s_fiber_count;
     if(m_stack){
+        //自然析构
         SYLAR_ASSERT(m_state == TERM || m_state == INIT || m_state == EXCEPT);
         MallocStackAllocator::Dealloc(m_stack,m_stacksize);
     } else {
+        //主动释放
         SYLAR_ASSERT(!m_cb);
         SYLAR_ASSERT(m_state == EXEC);
 
@@ -72,6 +76,7 @@ Fiber::Fiber(std::function<void()> cb, size_t stacksize, bool use_caller)
     if(getcontext(&m_ctx)) {
         SYLAR_ASSERT2(false,"getcontext");
     }
+    //执行完毕切换回的协程取决于实现
     m_ctx.uc_link = nullptr;
     m_ctx.uc_stack.ss_sp = m_stack;
     m_ctx.uc_stack.ss_size = m_stacksize;
@@ -92,6 +97,7 @@ void Fiber::reset(std::function<void()> cb)
     if(getcontext(&m_ctx)){
         SYLAR_ASSERT2(false,"getcontext");
     }
+    //执行完毕切换回的协程取决于实现
     m_ctx.uc_link = nullptr;
     m_ctx.uc_stack.ss_sp = m_stack;
     m_ctx.uc_stack.ss_size = m_stacksize;
@@ -162,7 +168,8 @@ void Fiber::YieldToReady()
 void Fiber::YieldToHold()
 {
     Fiber::ptr cur = GetThis();
-    cur->m_state = HOLD;
+    SYLAR_ASSERT(cur->m_state == EXEC);
+    // cur->m_state = HOLD;
     cur->swapOut();
 }
 uint64_t Fiber::TotalFibers()
@@ -170,7 +177,7 @@ uint64_t Fiber::TotalFibers()
     return s_fiber_count;
 }
 void Fiber::CallerMainFunc(){
-        Fiber::ptr cur = GetThis();
+    Fiber::ptr cur = GetThis();
     SYLAR_ASSERT(cur);
     try {
         cur->m_cb();

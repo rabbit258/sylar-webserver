@@ -2,6 +2,11 @@
 #include <iostream>
 namespace sylar{
     // Config::ConfigVarMap Config::m_datas;
+
+/// @brief 解析出yaml文件中的每个属性，存在output里
+/// @param prefix 当前属性名的前缀
+/// @param node 当前层的node
+/// @param output 引用输出
 static void ListAllMember(const std::string & prefix,
                           const YAML::Node & node,
                           std::list<std::pair<std::string,const YAML::Node>> & output){
@@ -30,6 +35,7 @@ void Config::LoadFromYaml(const YAML::Node &node)
         }
 
         std::transform(key.begin(),key.end(),key.begin(),::tolower);
+        //查看是否已经存在该属性
         ConfigVarBase::ptr var = LookupBase(key);
         if(var){
             if(i.second.IsScalar()){

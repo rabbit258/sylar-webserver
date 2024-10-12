@@ -14,12 +14,19 @@ public:
     typedef std::shared_ptr<Scheduler> ptr;
     typedef Mutex MutexType;
 
+    /**
+     * @brief 构造函数
+     * @param[in] threads 线程数量
+     * @param[in] use_caller 是否使用当前调用线程
+     * @param[in] name 协程调度器名称
+     */
     Scheduler(size_t threads = 1,bool use_caller = true,const std::string & name = "");
     virtual ~Scheduler();
 
     const std::string & getName() const {return m_name;}
-
+    //返回当前协程调度器
     static Scheduler * GetThis();
+    //返回当前协程调度器的调度协程
     static Fiber* GetMainFiber();
 
     void start();
@@ -56,6 +63,7 @@ public:
 protected:
     virtual void tickle();
     void run();
+    //是否能够停止
     virtual bool stopping();
     virtual void idel();
     void setThis();
@@ -64,6 +72,7 @@ protected:
     size_t m_threadCount = 0;
     size_t m_activeThreadCount = 0;
     size_t m_idleThreadcount = 0;
+    /// 是否正在停止
     bool m_stopping = true;
     bool m_autoStop = false;
     bool hasIdleThreads() { return m_idleThreadcount > 0; }
@@ -108,7 +117,7 @@ struct FiberAndThread {
     std::list<FiberAndThread> m_fibers;//任务池
     std::map<int,std::list<FiberAndThread>> m_thrFibers;//指定线程的任务
     std::string m_name;//调度器名字
-    Fiber::ptr m_rootFiber;//主协程
+    Fiber::ptr m_rootFiber;//use_caller为true时有效, 调度协程
 
     template<class FiberOrCb>
     bool scheduleNoLock(FiberOrCb fc,int thread){

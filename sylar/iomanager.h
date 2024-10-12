@@ -9,20 +9,24 @@ public:
     typedef std::shared_ptr<IOmanager> ptr;
     typedef RWMutex RWMutexType;
 
+    //与epoll一致
     enum Event{
         NONE = 0x0,
         READ = 0x1,     //EPOLLIN
         WRITE = 0x4     //EPOLLOUT
     };
-
+    //创建schduer，声明epoll，给fd添加监听事件用于唤醒线程
     IOmanager(size_t threads = 1,bool use_caller = true,const std::string & name = "");
     ~IOmanager();
 
     //1 success 0 retry -1 error
+    //给fd添加一个event事件
     int addEvent(int fd,Event event,std::function<void()> cb =nullptr);
+    //删除fd上的event事件，不会触发回调
     bool delEvent(int fd,Event event);
+    //取消fd上的event事件，会触发回调
     bool cancelEvent(int fd,Event event);
-
+    //取消fd上的所有事件
     bool cancelALL(int fd);
 
     static IOmanager * GetThis();
@@ -46,6 +50,7 @@ private:
 
         EventContext & getContext(Event event);
         void resetContext(EventContext & ctx);
+        //触发事件，同时清空事件标记
         void triggerEvent(Event event);
 
         int fd;                 //句柄

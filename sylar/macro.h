@@ -3,7 +3,7 @@
 #include<string.h>
 #include<assert.h>
 #include"util.h"
-
+//分支预测
 #if defined __GUNC__ || defined __LLVM__
 #   define SYLAR_LICKLY(x)          __builtin_expect(!!(x),1)
 #   define SYLAR_UNLICKLY(x)        __builtin_expect(!!(x),0)

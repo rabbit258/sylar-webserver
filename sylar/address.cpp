@@ -13,11 +13,13 @@ namespace sylar{
 static sylar::Logger::ptr g_logger = SYLAR_LOG_NAME("system");
 
 template<class T>
+// 000...11111111 bits个0
 static T CreateMask(uint32_t bits){
     return (1 << (sizeof(T) * 8 -bits)) - 1;
 }
 
 template<class T>
+//统计1的数量
 static uint32_t CountBytes(T value){
     uint32_t result = 0;
     for(;value;++result){
@@ -63,6 +65,7 @@ bool Address::Lookup(std::vector<Address::ptr> &result, const std::string &host,
     const char * service = NULL;
 
     if(!host.empty() && host[0] == '['){
+        //解析ipv6的host和端口
         const char * endipv6 = (const char *)memchr(host.c_str() + 1 ,']' , host.size() - 1);
         if(*(endipv6 +1 )==':'){
             service = endipv6 +2 ;
@@ -71,6 +74,7 @@ bool Address::Lookup(std::vector<Address::ptr> &result, const std::string &host,
     }
 
     if(node.empty()){
+        //解析ipv4的host和端口
         service = (const char *)memchr(host.c_str() + 1 ,':' , host.size() - 1);
         if(service){
             if(!memchr(service + 1,':',host.c_str() + host.size() - service - 1)){
@@ -195,7 +199,7 @@ bool Address::GetInterfaceAddresses(std::vector<std::pair<Address::ptr, uint32_t
             ,std::pair<Address::ptr, uint32_t>> results;
     if(!GetInterfaceAddresses(results,family)){
         return false;
-    }
+    } 
 
     auto its = results.equal_range(iface);
     for(;its.first != its.second; ++its.first){

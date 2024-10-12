@@ -96,6 +96,7 @@ Timer::ptr TimerManager::addTimer(uint64_t ms, std::function<void()> cb, bool re
     return timer;
 }
 
+//查看weak_cond指向的对象是否还存在，存在则执行回调
 static void OnTimer(std::weak_ptr<void> weak_cond,std::function<void()> cb){
     std::shared_ptr<void> tmp  = weak_cond.lock();
     if(tmp){
@@ -127,22 +128,27 @@ void TimerManager::listExpiredCb(std::vector<std::function<void()>> &cbs)
 {
     uint64_t now_ms = sylar::GetCurrentMS();
     std::vector<Timer::ptr> expired;
+    
     {
         RWMutexType::ReadLock lock(m_mutex);
         if(m_timers.empty()){
             return;
         }
     }
+    
     RWMutexType::WriteLock lock(m_mutex);
-
+    if(m_timers.empty()){
+        return;
+    }
     bool rollover = detectClockRollover(now_ms);
     if(!rollover && ((*m_timers.begin())->m_next > now_ms)){
         return;
     }
 
     Timer::ptr now_timer(new Timer(now_ms));
+    //这里可以让now_ms+1,然后修改一下比较规则来避免这个循环
     auto it = rollover?m_timers.end() : m_timers.lower_bound(now_timer);
-    while(it != m_timers.end() && (*it)->m_next != now_ms){
+    while(it != m_timers.end() && (*it)->m_next == now_ms){
         ++it;
     }
     expired.insert(expired.begin() , m_timers.begin() , it);

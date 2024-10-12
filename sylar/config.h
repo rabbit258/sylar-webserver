@@ -20,9 +20,15 @@ namespace sylar
 class ConfigVarBase {
 public:
     typedef std::shared_ptr<ConfigVarBase> ptr;
+    
+
+    /// @brief 构造一个配置文件属性
+    /// @param name 属性名
+    /// @param description 属性辅助描述 
     ConfigVarBase(const std::string & name, const std::string & description = "")
         :m_name(name)
         ,m_description(description){
+        //属性名不分大小写
         std::transform(m_name.begin(),m_name.end(),m_name.begin(),::tolower);
         }
     virtual ~ConfigVarBase(){}
@@ -37,6 +43,7 @@ protected:
     std::string m_description;
 };
 
+//泛化
 template<class F,class T>
 class LexicalCast {
 public:
@@ -45,6 +52,7 @@ public:
     }
 };
 
+//string -> vector
 template<class T>
 class LexicalCast<std::string,std::vector<T>> {
 public:
@@ -61,6 +69,8 @@ public:
     }
 };
 
+
+//vector -> string
 template<class T>
 class LexicalCast<std::vector<T>,std::string> {
 public:
@@ -75,6 +85,7 @@ public:
     }
 };
 
+//string -> list
 template<class T>
 class LexicalCast<std::string,std::list<T>> {
 public:
@@ -91,6 +102,7 @@ public:
     }
 };
 
+//list -> string
 template<class T>
 class LexicalCast<std::list<T>,std::string> {
 public:
@@ -105,6 +117,7 @@ public:
     }
 };
 
+//string -> set
 template<class T>
 class LexicalCast<std::string,std::set<T>> {
 public:
@@ -121,6 +134,7 @@ public:
     }
 };
 
+// set -> string
 template<class T>
 class LexicalCast<std::set<T>,std::string> {
 public:
@@ -135,6 +149,7 @@ public:
     }
 };
 
+//string -> unordered_set
 template<class T>
 class LexicalCast<std::string,std::unordered_set<T>> {
 public:
@@ -151,6 +166,7 @@ public:
     }
 };
 
+//unordered_set -> string
 template<class T>
 class LexicalCast<std::unordered_set<T>,std::string> {
 public:
@@ -165,6 +181,7 @@ public:
     }
 };
 
+//string -> map<string,T>
 template<class T>
 class LexicalCast<std::string,std::map<std::string,T>> {
 public:
@@ -181,6 +198,7 @@ public:
     }
 };
 
+//map<string,T> -> string
 template<class T>
 class LexicalCast<std::map<std::string,T>,std::string> {
 public:
@@ -195,6 +213,7 @@ public:
     }
 };
 
+//string -> unordered_map<string,T>
 template<class T>
 class LexicalCast<std::string,std::unordered_map<std::string,T>> {
 public:
@@ -211,6 +230,7 @@ public:
     }
 };
 
+//unordered_map<string,T> -> string
 template<class T>
 class LexicalCast<std::unordered_map<std::string,T>,std::string> {
 public:
@@ -232,7 +252,10 @@ class ConfigVar : public ConfigVarBase {
 public:
     typedef RWMutex RWMutexType;
     typedef std::shared_ptr<ConfigVar> ptr;
+    //监听函数
     typedef std::function<void (const T& old_value,const T & new_value)> on_chang_cb;
+    
+    //属性名，属性值，描述
     ConfigVar(const std::string & name
             ,const T& default_value
             ,const std::string & description = "")
@@ -240,6 +263,7 @@ public:
         ,m_val(default_value){
 
         }
+    //注意ToStr和FromStr都是仿函数
     std::string toString() override{
         try{
             // return boost::lexical_cast<std::string>(m_val);
@@ -273,6 +297,7 @@ public:
             if(v == m_val){
                 return;
             }
+            //调用监听器
             for(auto & i : m_cbs){
                 i.second(m_val,v);
             }
@@ -307,6 +332,7 @@ public:
 private:
     T m_val;
     RWMutexType m_mutex;
+    //回调函数映射
     std::map<uint64_t,on_chang_cb> m_cbs;
 };
 
@@ -315,6 +341,7 @@ public:
     typedef std::map<std::string,ConfigVarBase::ptr> ConfigVarMap;
     typedef RWMutex RWMutexType;
 
+    //查找属性值
     template<class T>
     static typename ConfigVar<T>::ptr Lookup(const std::string & name,
             const T& default_value,const std::string & description = ""){
@@ -347,6 +374,7 @@ public:
         return v;
     }
 
+    //查找属性值
     template<class T>
     static typename ConfigVar<T>::ptr Lookup(const std::string & name){
         RWMutexType::ReadLock lock(GetMutex());
@@ -358,9 +386,13 @@ public:
 
     }
 
+    //从yaml中加载配置
     static void LoadFromYaml(const YAML::Node & node);
+
+    //与lookup一致，但不会进行动态指针转化
     static ConfigVarBase::ptr LookupBase(const std::string & name);
 
+    //对维护的每个ConfigVarBase::ptr都运行一边cb
     static void Visit(std::function<void(ConfigVarBase::ptr)> cb); 
 private:
     static ConfigVarMap & GetDatas(){

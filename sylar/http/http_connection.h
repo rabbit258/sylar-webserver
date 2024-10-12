@@ -45,12 +45,26 @@ class HttpConnection : public SocketStream {
 friend class HttpConnectionPool;
 public:
     typedef std::shared_ptr<HttpConnection> ptr;
-
+    /**
+     * @brief 发送HTTP的GET请求
+     * @param[in] url 请求的url
+     * @param[in] timeout_ms 超时时间(毫秒)
+     * @param[in] headers HTTP请求头部参数
+     * @param[in] body 请求消息体
+     * @return 返回HTTP结果结构体
+     */
     static HttpResult::ptr DoGet(const std::string& url
                             , uint64_t timeout_ms
                             , const std::map<std::string, std::string>& headers = {}
                             , const std::string& body = "");
-
+    /**
+     * @brief 发送HTTP的GET请求
+     * @param[in] uri URI结构体
+     * @param[in] timeout_ms 超时时间(毫秒)
+     * @param[in] headers HTTP请求头部参数
+     * @param[in] body 请求消息体
+     * @return 返回HTTP结果结构体
+     */
     static HttpResult::ptr DoGet(Uri::ptr uri
                             , uint64_t timeout_ms
                             , const std::map<std::string, std::string>& headers = {}
@@ -65,19 +79,41 @@ public:
                             , uint64_t timeout_ms
                             , const std::map<std::string, std::string>& headers = {}
                             , const std::string& body = "");
-
+    /**
+     * @brief 发送HTTP请求
+     * @param[in] method 请求类型
+     * @param[in] uri 请求的url
+     * @param[in] timeout_ms 超时时间(毫秒)
+     * @param[in] headers HTTP请求头部参数
+     * @param[in] body 请求消息体
+     * @return 返回HTTP结果结构体
+     */
     static HttpResult::ptr DoRequest(HttpMethod method
                             , const std::string& url
                             , uint64_t timeout_ms
                             , const std::map<std::string, std::string>& headers = {}
                             , const std::string& body = "");
-
+    /**
+     * @brief 发送HTTP请求
+     * @param[in] method 请求类型
+     * @param[in] uri URI结构体
+     * @param[in] timeout_ms 超时时间(毫秒)
+     * @param[in] headers HTTP请求头部参数
+     * @param[in] body 请求消息体
+     * @return 返回HTTP结果结构体
+     */
     static HttpResult::ptr DoRequest(HttpMethod method
                             , Uri::ptr uri
                             , uint64_t timeout_ms
                             , const std::map<std::string, std::string>& headers = {}
                             , const std::string& body = "");
-
+    /**
+     * @brief 发送HTTP请求
+     * @param[in] req 请求结构体
+     * @param[in] uri URI结构体
+     * @param[in] timeout_ms 超时时间(毫秒)
+     * @return 返回HTTP结果结构体
+     */
     static HttpResult::ptr DoRequest(HttpRequest::ptr req
                             , Uri::ptr uri
                             , uint64_t timeout_ms);

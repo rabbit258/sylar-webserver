@@ -11,6 +11,7 @@ namespace sylar{
 class ByteArray{
 public:
     typedef std::shared_ptr<ByteArray> ptr;
+    //基础node类，bytearray由多个node够成的链表组成
     struct Node{
         Node(size_t s);
         Node();
@@ -24,6 +25,7 @@ public:
     ByteArray(size_t base_size = 4096);
     ~ByteArray();
 
+    //固定长度
     void writeFint8(int8_t value);
     void writeFuint8(uint8_t value);
     void writeFint16(int16_t value);
@@ -33,6 +35,7 @@ public:
     void writeFint64(int64_t value);
     void writeFuint64(uint64_t value);
 
+    //无固定长度
     void writeInt32(int32_t value);
     void writeUint32(uint32_t value);
     void writeInt64(int64_t value);
@@ -51,7 +54,7 @@ public:
     void writeStringWithoutLength(const std::string & value);
 
 
-    //read
+    //read 固定长度
     int8_t  readFint8();
     uint8_t readFuint8();
     int16_t  readFint16();
@@ -61,6 +64,7 @@ public:
     int64_t  readFint64();
     uint64_t readFuint64();
 
+    //非固定长度
     int32_t  readInt32();
     uint32_t readUint32();
     int64_t  readInt64();
@@ -91,7 +95,9 @@ public:
     bool writeToFile(const std::string& name) const;
     bool readFromFile(const std::string & name);
 
+   
     size_t getBaseSize() const { return m_baseSize;}
+    // 返回可读取数据大小
     size_t getReadSize() const { return m_size - m_position;}
 
     bool isLittleEndian() const;
@@ -99,9 +105,28 @@ public:
 
     std::string toString() const;
     std::string toHexString() const;
-
+    /**
+     * @brief 获取可读取的缓存,保存成iovec数组
+     * @param[out] buffers 保存可读取数据的iovec数组
+     * @param[in] len 读取数据的长度,如果len > getReadSize() 则 len = getReadSize()
+     * @return 返回实际数据的长度
+     */
     uint64_t getReadBuffers(std::vector<iovec> & buffers,uint64_t len = ~0ull) const;
+        /**
+     * @brief 获取可读取的缓存,保存成iovec数组,从position位置开始
+     * @param[out] buffers 保存可读取数据的iovec数组
+     * @param[in] len 读取数据的长度,如果len > getReadSize() 则 len = getReadSize()
+     * @param[in] position 读取数据的位置
+     * @return 返回实际数据的长度
+     */
     uint64_t getReadBuffers(std::vector<iovec> & buffers,uint64_t len ,uint64_t position) const;
+        /**
+     * @brief 获取可写入的缓存,保存成iovec数组
+     * @param[out] buffers 保存可写入的内存的iovec数组
+     * @param[in] len 写入的长度
+     * @return 返回实际的长度
+     * @post 如果(m_position + len) > m_capacity 则 m_capacity扩容N个节点以容纳len长度
+     */
     uint64_t getWriteBuffers(std::vector<iovec> & buffers,uint64_t len);
 
     size_t getSize() const {return m_size;} ; 
@@ -109,12 +134,19 @@ private:
     void addCapacity(size_t size);
     size_t getCapacity() const {return m_capacity - m_position;}
 
+    /// 内存块的大小
     size_t m_baseSize;
+    /// 当前操作位置
     size_t m_position;
+    /// 当前的总容量
     size_t m_capacity;
+    /// 当前数据的大小
     size_t m_size;
+    /// 字节序,默认大端
     int8_t m_endian;
+    /// 第一个内存块指针
     Node* m_root;
+    /// 当前操作的内存块指针
     Node* m_cur;
 };
 }

@@ -12,6 +12,7 @@ namespace sylar{
     void set_hook_enable(bool flag);
 
 }
+//禁止重载
 extern "C"{
 
 //sleep

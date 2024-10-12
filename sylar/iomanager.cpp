@@ -53,6 +53,7 @@ IOmanager::IOmanager(size_t threads, bool use_caller, const std::string &name)
     event.events = EPOLLIN | EPOLLET;
     event.data.fd = m_tickleFds[0];
 
+    //设置为非阻塞
     rt = fcntl(m_tickleFds[0],F_SETFL,O_NONBLOCK);
     SYLAR_ASSERT(!rt);
 
@@ -97,7 +98,7 @@ int IOmanager::addEvent(int fd, Event event, std::function<void()> cb)
         contextResize(fd * 1.5);
         fd_ctx = m_fdContexts[fd];
     }
-    SYLAR_LOG_INFO(g_logger) << "addevent fd = " << fd << " event = " << (int)fd_ctx->m_events;
+    // SYLAR_LOG_INFO(g_logger) << "addevent fd = " << fd << " event = " << (int)fd_ctx->m_events;
     FdContext::MutexType::Lock lock2(fd_ctx->mutex);
     if(fd_ctx->m_events & event){
         SYLAR_LOG_ERROR(g_logger) << "addEvent aasert fd = "<<fd
@@ -130,7 +131,8 @@ int IOmanager::addEvent(int fd, Event event, std::function<void()> cb)
         event_ctx.cb.swap(cb);
     } else {
         event_ctx.fiber = Fiber::GetThis();
-        SYLAR_ASSERT(event_ctx.fiber->getState() == Fiber::EXEC);
+                SYLAR_ASSERT2(event_ctx.fiber->getState() == Fiber::EXEC
+                      ,"state=" << event_ctx.fiber->getState());
     }
     return 0;
 }
@@ -221,7 +223,7 @@ bool IOmanager::cancelALL(int fd)
 
     int rt= epoll_ctl(m_epfd, op, fd, &epevent);
     if(rt){
-                SYLAR_LOG_ERROR(g_logger) << "epoll_ctl" << m_epfd << ","
+        SYLAR_LOG_ERROR(g_logger) << "epoll_ctl" << m_epfd << ","
         << op << "," << fd << "," << epevent.events << "):"
         << rt << " (" <<errno <<") (" <<strerror(errno) <<")";
         return false;
@@ -244,9 +246,11 @@ IOmanager *IOmanager::GetThis()
 }
 void IOmanager::tickle()
 {
+    //所有线程都在工作
     if(!hasIdleThreads()){
         return;
     }
+    //触发epoll_wait
     int rt = write(m_tickleFds[1],"T",1);
     SYLAR_ASSERT(rt == 1);
 }
@@ -289,6 +293,7 @@ void IOmanager::idel()
 
             rt = epoll_wait(m_epfd , events , 64 ,(int)next_timeout);
             // SYLAR_LOG_INFO(g_logger) << "epoll_wait has response! rt = " << rt;
+            //被信号打断
             if(rt< 0 && errno == EINTR){
 
             } else {
@@ -297,6 +302,7 @@ void IOmanager::idel()
         }while(true);
 
         std::vector<std::function<void()>> cbs;
+        //处理定时器事件
         listExpiredCb(cbs);
         if(!cbs.empty()){
             schedule(cbs.begin(),cbs.end());
@@ -307,6 +313,7 @@ void IOmanager::idel()
             epoll_event & event = events[i];
             if(event.data.fd == m_tickleFds[0]){
                 uint8_t dummy;
+                //边缘触发模式，需要一次性读完
                 while(read(m_tickleFds[0],&dummy,1) == 1);
                 continue;
             }

@@ -17,7 +17,7 @@ void HttpServer::handleClient(Socket::ptr client)
     do {
         auto req = session->recvRequest();
         if(!req){
-            SYLAR_LOG_WARN(g_logger) << "recv http request fail, errno="
+            SYLAR_LOG_DEBUG(g_logger) << "recv http request fail, errno="
                 << errno << " errst" << strerror(errno)
                 << " client: "<< *client;
             break;

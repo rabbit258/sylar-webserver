@@ -19,6 +19,7 @@ public:
     Socket::ptr getSock() const {return m_socket;}
     bool isConnected() const;
 protected:
+    //fd
     Socket::ptr m_socket;
     bool m_owner;
 };

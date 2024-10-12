@@ -6,5 +6,6 @@ int main(int argc,char ** argv){
     std::cout << uri->toString();
     auto addr = uri->createAddress();
     std::cout << *addr <<std::endl;
+    
     return 0;
 }

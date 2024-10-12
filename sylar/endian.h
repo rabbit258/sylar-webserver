@@ -26,6 +26,7 @@ byteswap(T value){
     return (T)bswap_16((uint64_t)value);
 }
 
+//"endian.h自带的宏"
 #if BYTE_ORDER == BIG_ENDIAN
 #define SYLAR_BYTE_ORDER SYLAR_BIG_ENDIAN
 #else
@@ -33,23 +34,32 @@ byteswap(T value){
 #endif
 
 #if SYLAR_BYTE_ORDER == SYLAR_BIG_ENDIAN
+/**
+ * @brief 只在小端机器上执行byteswap, 在大端机器上什么都不做
+ */
 template<class T>
 T byteswapOnLittleEndian(T t){
     return t;
 }
-
+/**
+ * @brief 只在大端机器上执行byteswap, 在小端机器上什么都不做
+ */
 template<class T>
 T byteswapOnBigEndian(T t){
     return byteswap(t);
 }
 
 #else 
-
+/**
+ * @brief 只在小端机器上执行byteswap, 在大端机器上什么都不做
+ */
 template<class T>
 T byteswapOnLittleEndian(T t){
     return byteswap(t);
 }
-
+/**
+ * @brief 只在大端机器上执行byteswap, 在小端机器上什么都不做
+ */
 template<class T>
 T byteswapOnBigEndian(T t){
     return t;

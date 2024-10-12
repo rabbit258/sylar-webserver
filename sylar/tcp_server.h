@@ -34,7 +34,9 @@ protected:
     virtual void startAccept(Socket::ptr sock);
 private:
     std::vector<Socket::ptr> m_socks;
+    /// 新连接的Socket工作的调度器
     IOmanager * m_worker;
+    /// 服务器Socket接收连接的调度器
     IOmanager * m_accpetworker;
     uint64_t m_readTimeout;
     std::string m_name;
